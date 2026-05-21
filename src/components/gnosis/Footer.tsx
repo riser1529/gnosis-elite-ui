@@ -11,12 +11,13 @@ export function Footer({ onApply }: { onApply: () => void }) {
             Balancing footballing excellence with foundational academic validation and robust psychological/athletic personal growth architectures.
           </p>
 
-          <div className="flex flex-col gap-4 text-sm font-medium text-neutral-400">
+    <div className="flex flex-col gap-4 text-sm font-medium text-neutral-400">
       {/* Email Row */}
       <div className="flex items-center gap-3 group mt-5">
         <Mail 
-          className="w-5 h-5 text-amber-500 transition-transform group-hover:scale-105" 
+          className="w-5 h-5 transition-transform group-hover:scale-105" 
           aria-hidden="true" 
+          style={{ color: 'var(--amber)' }}
         />
         <a 
           href="mailto:admissions@gnosisperformance.ie" 
@@ -29,8 +30,9 @@ export function Footer({ onApply }: { onApply: () => void }) {
       {/* Location Row */}
       <div className="flex items-start gap-3">
         <MapPin 
-          className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" 
+          className="w-5 h-5 shrink-0 mt-0.5" 
           aria-hidden="true" 
+          style={{ color: 'var(--amber)' }}
         />
         <span className="leading-relaxed">
           TU Blanchardstown & Corduff Sports Centre, Dublin.
@@ -42,7 +44,7 @@ export function Footer({ onApply }: { onApply: () => void }) {
         <div className="lg:justify-self-center">
           <h4 className="text-[10px] font-bold tracking-[0.32em] text-cyan-precision mt-2">ADMISSIONS</h4>
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">Spaces are competitive and application-based.</p>
-          <button onClick={onApply} className="mt-6 inline-flex items-center gap-1.5 rounded-md gradient-amber px-5 py-2.5 text-[11px] font-black tracking-[0.22em] text-primary-foreground shadow-amber transition hover:scale-[1.04]">
+          <button onClick={onApply} className="mt-6 inline-flex items-center gap-1.5 rounded-md gradient-amber px-5 py-2.5 text-[11px] font-black tracking-[0.22em] text-primary-foreground shadow-amber transition hover:scale-[1.04]" style={{ backgroundImage: 'var(--gradient-amber)' }}>
             APPLY NOW
           </button>
         </div>
@@ -72,7 +74,7 @@ export function Footer({ onApply }: { onApply: () => void }) {
 
 function Social({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <a href="#" aria-label={label} className="group grid h-10 w-10 place-items-center rounded-md border border-white/10 bg-white/[0.04] text-white/80 transition hover:-translate-y-0.5 hover:border-amber/60 hover:bg-amber/10 hover:text-amber">
+    <a href="#" aria-label={label} className="group grid h-10 w-10 place-items-center rounded-md border border-white/10 bg-white/[0.04] text-white/80 transition hover:-translate-y-0.5" style={{ transition: 'all .15s', }} onMouseEnter={(e)=>{(e.currentTarget as HTMLElement).style.borderColor='rgba(16,185,129,0.6)'; (e.currentTarget as HTMLElement).style.backgroundColor='rgba(16,185,129,0.08)'; (e.currentTarget as HTMLElement).style.color='var(--amber)';}} onMouseLeave={(e)=>{(e.currentTarget as HTMLElement).style.borderColor=''; (e.currentTarget as HTMLElement).style.backgroundColor=''; (e.currentTarget as HTMLElement).style.color='';}}>
       {children}
     </a>
   );

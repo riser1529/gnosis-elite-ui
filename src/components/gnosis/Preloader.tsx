@@ -26,7 +26,7 @@ export function Preloader({ onDone }: { onDone: () => void }) {
     >
       <div className="relative h-24 w-24">
         <div className="absolute inset-0 rounded-full border border-cyan-precision/30 animate-spin-slow" />
-        <div className="absolute inset-2 rounded-full border-2 border-amber/70 border-t-transparent animate-spin-slow" style={{ animationDirection: "reverse", animationDuration: "2s" }} />
+  <div className="absolute inset-2 rounded-full border-2 animate-spin-slow" style={{ borderColor: 'rgba(52,211,153,0.7)', borderTopColor: 'transparent', animationDirection: 'reverse', animationDuration: '2s' }} />
         <div className="absolute inset-0 grid place-items-center">
           <div className="h-9 w-9 rounded-full gradient-amber animate-pulse-ring shadow-amber" />
         </div>

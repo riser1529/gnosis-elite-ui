@@ -63,7 +63,7 @@ export function Hero({ onApply }: { onApply: () => void }) {
           className="h-full w-full object-cover scale-105 animate-[fade-up_1.4s_ease-out_both]"
         />
         <div className="absolute inset-0 hero-overlay" />
-        <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_50%_50%,transparent_0%,oklch(0.08_0.04_260/0.7)_100%)]" />
+  <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(60% 60% at 50% 50%, transparent 0%, rgba(0,0,0,0.7) 100%)' }} />
         {/* grid texture */}
         <div className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:60px_60px]" />
       </div>
@@ -74,7 +74,7 @@ export function Hero({ onApply }: { onApply: () => void }) {
         <div className="hidden md:block">
           <p className="text-center text-[13px] font-medium tracking-[0.32em] text-white/80">
             Built with Elite {" "}
-            <span className="text-amber">Architectural Specs.</span>
+            <span style={{ color: 'var(--amber)' }}>Architectural Specs.</span>
           </p>
         </div>
         
@@ -89,10 +89,10 @@ export function Hero({ onApply }: { onApply: () => void }) {
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-start px-5 pb-24 pt-10 sm:px-10 sm:pt-16">
-        <div className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-amber/40 bg-amber/10 px-3.5 py-1.5 text-[10px] font-bold tracking-[0.22em] text-amber">
+        <div className="animate-fade-up inline-flex items-center gap-2 rounded-full" style={{ border: '1px solid rgba(16,185,129,0.4)', background: 'rgba(16,185,129,0.08)', padding: '0.375rem 0.875rem' }}>
           <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber opacity-75" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-amber" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full" style={{ backgroundColor: 'rgba(16,185,129,0.75)' }} />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full" style={{ backgroundColor: 'var(--amber)' }} />
           </span>
           APPLICATIONS NOW OPEN FOR SEPTEMBER 2026 INTAKE
         </div>
@@ -100,11 +100,11 @@ export function Hero({ onApply }: { onApply: () => void }) {
         <h1 className="animate-fade-up mt-6 max-w-4xl text-balance text-[36px] font-black uppercase leading-[0.92] tracking-[-0.02em] text-white sm:text-7xl lg:text-[80px]" style={{ animationDelay: "0.1s" }}>
           Train Like a
           <br />
-          <span className="bg-gradient-to-r from-amber via-amber-glow to-amber bg-clip-text text-transparent">
+          <span className="gradient-amber bg-clip-text text-transparent">
             Pro.
           </span>
           <br />
-          Develop Like a <span className="bg-gradient-to-r from-amber via-amber-glow to-amber bg-clip-text text-transparent">Pro.</span>
+          Develop Like a <span className="gradient-amber bg-clip-text text-transparent">Pro.</span>
         </h1>
 
         {/* Info pills */}
@@ -127,7 +127,7 @@ export function Hero({ onApply }: { onApply: () => void }) {
             href="#programme"
             className="group inline-flex items-center justify-center gap-2 rounded-md border border-white/25 bg-white/5 px-7 py-4 text-sm font-bold tracking-[0.2em] text-white backdrop-blur transition hover:border-white/50 hover:bg-white/10"
           >
-            <Play className="h-4 w-4 text-amber" />
+            <Play className="h-4 w-4" style={{ color: 'var(--amber)' }} />
             VIEW PROGRAMME
           </a> */}
         </div>
@@ -142,7 +142,7 @@ export function Hero({ onApply }: { onApply: () => void }) {
 function Pill({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
   return (
     <div className="glass inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium text-white/90">
-      <span className="text-amber">{icon}</span>
+      <span style={{ color: 'var(--amber)' }}>{icon}</span>
       {children}
     </div>
   );

@@ -1,15 +1,30 @@
 import { useState } from "react";
 import { X, ChevronRight, ChevronLeft, Check, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import emailjs from "@emailjs/browser";
+
 
 export function ApplyModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [step, setStep] = useState<1 | 2>(1);
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
-    playerName: "", dob: "", gender: "", school: "", county: "",
-    club: "", position: "", level: "", history: "",
-    parentName: "", parentEmail: "", parentMobile: "", referral: "", message: "",
-    consent1: false, consent2: false,
+    playerName: "",
+    playerEmail: "", // Explicit state registration
+    dob: "",
+    gender: "",
+    school: "",
+    county: "",
+    club: "",
+    position: "",
+    level: "",
+    history: "",
+    parentName: "",
+    parentEmail: "",
+    parentMobile: "",
+    referral: "",
+    message: "",
+    consent1: false,
+    consent2: false,
   });
 
   if (!open) return null;
@@ -17,23 +32,73 @@ export function ApplyModal({ open, onClose }: { open: boolean; onClose: () => vo
   const set = (k: keyof typeof form) => (e: any) =>
     setForm((f) => ({ ...f, [k]: e.target.type === "checkbox" ? e.target.checked : e.target.value }));
 
-  const submit = () => {
+  const submit = async () => {
     if (!form.consent1 || !form.consent2) {
       toast.error("Please confirm both consent declarations.");
       return;
     }
+
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
+
+    // Map your React state over to match your EmailJS Template structural keys exactly
+    const emailParams = {
+      player_name: form.playerName,
+      player_email: form.playerEmail,
+      dob: form.dob,
+      gender: form.gender,
+      current_school: form.school,
+      county: form.county,
+      current_club: form.club,
+      positions: form.position,
+      current_level: form.level || "None specified",
+      playing_history: form.history || "No custom playing history added.",
+      parent_name: form.parentName,
+      parent_email: form.parentEmail,
+      parent_mobile: form.parentMobile,
+      heard_about_us: form.referral || "Not specified",
+      additional_message: form.message || "No additional message left.",
+      consent_guardian: form.consent1 ? "Yes, Verified & Authorized" : "No",
+      consent_marketing: form.consent2 ? "Yes, Opted-in" : "No",
+    };
+
+    try {
+
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID, // Your verified cPanel SMTP Service ID
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID, // Fetched via Vite environment metadata
+        emailParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY, // Fetched via Vite environment metadata
+      );
+
       toast.success("Application submitted. Our team will be in touch.");
       onClose();
       setStep(1);
-    }, 1100);
+      
+      // Reset form variables smoothly upon completion
+      setForm({
+        playerName: "", playerEmail: "", dob: "", gender: "", school: "", county: "",
+        club: "", position: "", level: "", history: "",
+        parentName: "", parentEmail: "", parentMobile: "", referral: "", message: "",
+        consent1: false, consent2: false,
+      });
+    } catch (error) {
+      console.error("EmailJS Service Failure:", error);
+      toast.error("Failed to send application. Please try again or contact support.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
     <div className="fixed inset-0 z-[90] flex items-start justify-center overflow-y-auto bg-black/75 backdrop-blur-sm p-4 sm:p-8 animate-fade-up">
-      <div className="relative w-full max-w-2xl my-auto rounded-2xl border border-white/10 bg-gradient-to-b from-[oklch(0.16_0.05_260)] to-[oklch(0.1_0.04_260)] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]">
+      <div
+        className="relative w-full max-w-2xl my-auto rounded-2xl border"
+        style={{
+          background: 'linear-gradient(135deg, #000000 0%, #071014 60%, rgba(16,185,129,0.10) 100%)',
+          boxShadow: '0 30px 80px -20px rgba(0,0,0,0.6)',
+          borderColor: 'rgba(255,255,255,0.04)'
+        }}
+      >
         <button
           onClick={onClose}
           aria-label="Close"
@@ -43,7 +108,7 @@ export function ApplyModal({ open, onClose }: { open: boolean; onClose: () => vo
         </button>
 
         <div className="px-6 pt-8 sm:px-10 sm:pt-10 text-center">
-          <span className="inline-block rounded-full border border-amber/40 bg-amber/10 px-3 py-1 text-[10px] font-bold tracking-[0.25em] text-amber">
+          <span className="inline-block rounded-full px-3 py-1 text-[10px] font-bold tracking-[0.25em]" style={{ border: '1px solid rgba(16,185,129,0.4)', background: 'rgba(16,185,129,0.08)', color: 'var(--amber)' }}>
             SEPTEMBER 2026 INTAKE
           </span>
           <h2 className="mt-4 text-3xl sm:text-4xl font-black tracking-tight text-white">APPLY NOW</h2>
@@ -66,6 +131,15 @@ export function ApplyModal({ open, onClose }: { open: boolean; onClose: () => vo
                 <SectionTitle>PLAYER DETAILS</SectionTitle>
                 <Field label="Player Full Name" required>
                   <input value={form.playerName} onChange={set("playerName")} className={inputCls} placeholder="e.g. Liam Murphy" />
+                </Field>
+                <Field label="Player Email" required>
+                  <input 
+                    type="email" 
+                    value={form.playerEmail} 
+                    onChange={set("playerEmail")} 
+                    className={inputCls} 
+                    placeholder="e.g. liam.murphy@example.com" 
+                  />
                 </Field>
                 <div className="grid gap-5 sm:grid-cols-2">
                   <Field label="Date of Birth" required>
@@ -129,12 +203,12 @@ export function ApplyModal({ open, onClose }: { open: boolean; onClose: () => vo
                 <div className="mt-2 rounded-lg border border-white/10 bg-black/30 p-5">
                   <div className="text-xs font-bold tracking-[0.22em] text-white">CONSENT & DECLARATIONS</div>
                   <label className="mt-4 flex items-start gap-3 text-sm text-muted-foreground cursor-pointer">
-                    <input type="checkbox" checked={form.consent1} onChange={set("consent1")} className="mt-1 h-4 w-4 accent-amber" />
-                    <span>I confirm that I am the parent or legal guardian of the player named in this application and I consent to submitting this application on their behalf. <span className="text-amber">*</span></span>
+                    <input type="checkbox" checked={form.consent1} onChange={set("consent1")} className="mt-1 h-4 w-4" style={{ accentColor: 'var(--amber)' }} />
+                    <span>I confirm that I am the parent or legal guardian of the player named in this application and I consent to submitting this application on their behalf. <span style={{ color: 'var(--amber)' }}>*</span></span>
                   </label>
                   <label className="mt-3 flex items-start gap-3 text-sm text-muted-foreground cursor-pointer">
-                    <input type="checkbox" checked={form.consent2} onChange={set("consent2")} className="mt-1 h-4 w-4 accent-amber" />
-                    <span>I understand that Gnosis Performance Football Academy may contact me via email or phone regarding this application and the programme. <span className="text-amber">*</span></span>
+                    <input type="checkbox" checked={form.consent2} onChange={set("consent2")} className="mt-1 h-4 w-4" style={{ accentColor: 'var(--amber)' }} />
+                    <span>I understand that Gnosis Performance Football Academy may contact me via email or phone regarding this application and the programme. <span style={{ color: 'var(--amber)' }}>*</span></span>
                   </label>
                 </div>
 
@@ -150,7 +224,7 @@ export function ApplyModal({ open, onClose }: { open: boolean; onClose: () => vo
             )}
           </div>
           <p className="mt-4 text-center text-[11px] text-muted-foreground">
-            By submitting, you agree to our <a className="text-amber hover:underline" href="#">Privacy Policy</a> and <a className="text-amber hover:underline" href="#">Terms of Use</a>.
+            By submitting, you agree to our <a style={{ color: 'var(--amber)' }} className="hover:underline" href="#">Privacy Policy</a> and <a style={{ color: 'var(--amber)' }} className="hover:underline" href="#">Terms of Use</a>.
           </p>
         </div>
       </div>
@@ -159,7 +233,8 @@ export function ApplyModal({ open, onClose }: { open: boolean; onClose: () => vo
 }
 
 const inputCls =
-  "w-full rounded-md border border-white/10 bg-black/40 px-3.5 py-2.5 text-sm text-white placeholder:text-white/30 outline-none transition focus:border-amber focus:ring-2 focus:ring-amber/30";
+  "w-full rounded-md border border-white/10 bg-black/40 px-3.5 py-2.5 text-sm text-white placeholder:text-white/30 outline-none transition" +
+  " focus:ring-2";
 const ctaCls =
   "inline-flex items-center justify-center gap-2 rounded-md gradient-amber px-6 py-3 text-xs font-black tracking-[0.2em] text-primary-foreground shadow-amber transition hover:scale-[1.02] active:scale-[0.99]";
 

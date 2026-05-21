@@ -41,38 +41,39 @@
   --radius: 0.625rem;
 
   /* Brand palette */
-  --deep: oklch(0.18 0.06 260);            /* deep metallic blue */
-  --royal: oklch(0.32 0.16 265);           /* royal blue */
-  --steel: oklch(0.72 0.02 255);           /* steel grey */
-  --cyan-precision: oklch(0.78 0.09 220);  /* precision cyan */
-  --amber: oklch(0.74 0.18 55);            /* neon orange / precision amber */
-  --amber-glow: oklch(0.82 0.18 60);
+  /* New black / silver / green theme */
+  --deep: #000000;                         /* base black */
+  --royal: #050505;                        /* reserved (near-black) */
+  --steel: #0f1720;                        /* dark steel */
+  --cyan-precision: #b8b8b8;               /* neutral silver accent */
+  --amber: #10b981;                        /* primary green (emerald-500) */
+  --amber-glow: #34d399;                   /* lighter green glow (emerald-400) */
 
   --background: var(--deep);
-  --foreground: oklch(0.98 0.01 250);
-  --card: oklch(0.22 0.06 262);
-  --card-foreground: oklch(0.98 0.01 250);
-  --popover: oklch(0.18 0.05 260);
-  --popover-foreground: oklch(0.98 0.01 250);
+  --foreground: #cfcfcf;                   /* main silver text */
+  --card: #0b0b0b;                         /* slightly lighter than pure black */
+  --card-foreground: #cfcfcf;
+  --popover: #0b0b0b;
+  --popover-foreground: #cfcfcf;
   --primary: var(--amber);
-  --primary-foreground: oklch(0.15 0.04 260);
-  --secondary: oklch(0.26 0.06 262);
-  --secondary-foreground: oklch(0.98 0.01 250);
-  --muted: oklch(0.26 0.05 262);
-  --muted-foreground: oklch(0.72 0.03 255);
+  --primary-foreground: #04120a;           /* dark text for green buttons */
+  --secondary: #0f1720;
+  --secondary-foreground: #cfcfcf;
+  --muted: #141414;
+  --muted-foreground: #9a9a9a;
   --accent: var(--cyan-precision);
-  --accent-foreground: oklch(0.15 0.04 260);
-  --destructive: oklch(0.6 0.22 25);
-  --destructive-foreground: oklch(0.98 0.01 250);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 10%);
+  --accent-foreground: #cfcfcf;
+  --destructive: #9b1b1b;
+  --destructive-foreground: #fff;
+  --border: rgba(255,255,255,0.06);
+  --input: rgba(255,255,255,0.04);
   --ring: var(--amber);
 
-  --gradient-hero: radial-gradient(120% 80% at 50% 0%, oklch(0.32 0.14 265 / 0.55), transparent 60%),
-                   linear-gradient(180deg, oklch(0.12 0.05 260 / 0.55) 0%, oklch(0.08 0.04 260 / 0.85) 100%);
+  --gradient-hero: radial-gradient(120% 80% at 50% 0%, rgba(16,185,129,0.12), transparent 60%),
+                   linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.9) 100%);
   --gradient-amber: linear-gradient(135deg, var(--amber) 0%, var(--amber-glow) 100%);
-  --shadow-amber: 0 10px 40px -10px color-mix(in oklab, var(--amber) 55%, transparent);
-  --shadow-deep: 0 20px 60px -20px oklch(0 0 0 / 0.7);
+  --shadow-amber: 0 10px 40px -10px rgba(16,185,129,0.36);
+  --shadow-deep: 0 20px 60px -20px rgba(0,0,0,0.7);
 }
 
 @layer base {
