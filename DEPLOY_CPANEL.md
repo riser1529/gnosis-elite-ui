@@ -9,19 +9,19 @@ npm install
 npm run build
 ```
 
-The static site is generated at: **`dist/client/`**
+The static site is generated at: **`dist/`**
 
 ## 2. Upload to cPanel
 
 1. Log in to cPanel → **File Manager**.
 2. Open **`public_html`** (or a subdomain folder).
-3. Upload **everything inside `dist/client/`** (NOT the folder itself — its contents). This includes:
+3. Upload **everything inside `dist/`** (NOT the folder itself — its contents). This includes:
    - `index.html`
    - `assets/` (JS, CSS, images, video, audio — all hashed)
    - `.htaccess` (enables SPA routing — make sure hidden files are visible: View → Show Hidden Files)
 4. Done. Visit your domain.
 
-> Tip: zip `dist/client/*`, upload the zip via File Manager, then "Extract" in place. Faster than uploading hundreds of files.
+> Tip: zip `dist/*`, upload the zip via File Manager, then "Extract" in place. Faster than uploading hundreds of files.
 
 ## 3. EmailJS (application form)
 
@@ -38,10 +38,10 @@ Enable **AutoSSL** in cPanel (Security → SSL/TLS Status) so `https://` works. 
 
 ## 5. Updating the site
 
-Re-run `npm run build`, then re-upload the contents of `dist/client/` (overwrite). Keep `.htaccess` in place.
+Re-run `npm run build`, then re-upload the contents of `dist/` (overwrite). Keep `.htaccess` in place.
 
 ## Troubleshooting
 
 - **Blank page / 404 on refresh** → `.htaccess` missing or `mod_rewrite` disabled. Confirm the file is uploaded and ask LetsHost to enable rewrite (it's on by default).
-- **Video/audio not playing** → Check the file uploaded fully (size matches `dist/client/assets/`). Some shared hosts cap upload size — use the zip-extract method.
+- **Video/audio not playing** → Check the file uploaded fully (size matches `dist/assets/`). Some shared hosts cap upload size — use the zip-extract method.
 - **EmailJS error 403** → Add the domain in EmailJS Allowed Origins.
