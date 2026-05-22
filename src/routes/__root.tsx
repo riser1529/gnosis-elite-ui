@@ -1,10 +1,10 @@
-import { QueryClient } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
-  createRootRouteWithContext,
+  createRootRoute,
   useRouter,
 } from "@tanstack/react-router";
+import { ApplyProvider } from "@/components/gnosis/ApplyContext";
 
 function NotFoundComponent() {
   return (
@@ -63,12 +63,16 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+export const Route = createRootRoute({
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
 
 function RootComponent() {
-  return <Outlet />;
+  return (
+    <ApplyProvider>
+      <Outlet />
+    </ApplyProvider>
+  );
 }

@@ -4,7 +4,6 @@ import { Toaster } from "sonner";
 import { Preloader } from "@/components/gnosis/Preloader";
 import { Hero } from "@/components/gnosis/Hero";
 import { Footer } from "@/components/gnosis/Footer";
-import { ApplyModal } from "@/components/gnosis/ApplyModal";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -20,16 +19,14 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const [loading, setLoading] = useState(true);
-  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <>
       {loading && <Preloader onDone={() => setLoading(false)} />}
       <main className="bg-deep text-foreground">
-        <Hero onApply={() => setModalOpen(true)} />
-        <Footer onApply={() => setModalOpen(true)} />
+        <Hero />
+        <Footer />
       </main>
-      <ApplyModal open={modalOpen} onClose={() => setModalOpen(false)} />
       <Toaster theme="dark" position="top-center" richColors />
     </>
   );
