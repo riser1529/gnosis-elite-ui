@@ -72,9 +72,9 @@ export function Hero({ onApply }: { onApply: () => void }) {
       <nav className="relative z-20 flex items-center justify-between px-5 py-5 sm:px-10 sm:py-7">
         <Logo />
         <div className="hidden md:block">
-          <p className="text-center text-[13px] font-medium tracking-[0.32em] text-white/80">
-            Built with Elite {" "}
-            <span style={{ color: 'var(--amber)' }}>Architectural Specs.</span>
+          <p className="text-center text-[13px] font-bold tracking-[0.32em] text-white/80">
+            Developed for The Next Generation of {" "}
+            <span style={{ color: 'var(--amber)' }}>Footballers.</span>
           </p>
         </div>
         
@@ -97,21 +97,31 @@ export function Hero({ onApply }: { onApply: () => void }) {
           APPLICATIONS NOW OPEN FOR SEPTEMBER 2026 INTAKE
         </div>
 
-        <h1 className="animate-fade-up mt-6 max-w-4xl text-balance text-[36px] font-black uppercase leading-[0.92] tracking-[-0.02em] text-white sm:text-7xl lg:text-[80px]" style={{ animationDelay: "0.1s" }}>
-          Train Like a
-          <br />
-          <span className="gradient-amber bg-clip-text text-transparent">
-            Pro.
-          </span>
-          <br />
-          Develop Like a <span className="gradient-amber bg-clip-text text-transparent">Pro.</span>
-        </h1>
+        <div className="space-y-4 mt-6">
+  {/* Maximized Academy Headline */}
+  <h2 
+    className="animate-fade-up max-w-5xl text-balance text-3xl font-black uppercase leading-[0.92] tracking-[-0.01em] text-white sm:text-5xl lg:text-[68px]"
+    style={{ animationDelay: "0.05s" }}
+  >
+    Kerry's 1st Full Time 
+    <br />
+    <span className="gradient-amber bg-clip-text text-transparent">Transition Year</span> Soccer Academy
+  </h2>
+
+  {/* Supporting Sub-Line (Kept Perfect) */}
+  <p 
+    className="animate-fade-up text-[11px] font-black tracking-[0.25em] text-white uppercase sm:text-xs border-l-2 border-amber pl-3" 
+    style={{ animationDelay: "0.1s" }}
+  >
+    Experience training and developing Like a <span className="gradient-amber bg-clip-text text-transparent">Pro.</span>
+  </p>
+</div>
 
         {/* Info pills */}
         <div className="animate-fade-up mt-8 flex flex-wrap gap-3" style={{ animationDelay: "0.3s" }}>
-          <Pill icon={<MapPin className="h-3.5 w-3.5" />}>TU Blanchardstown & Corduff Sports Centre</Pill>
-          <Pill icon={<Calendar className="h-3.5 w-3.5" />}>Sept 3 – May 28</Pill>
-          <Pill icon={<ShieldCheck className="h-3.5 w-3.5" />}>UEFA Pro & UEFA A Coaches</Pill>
+          <Pill icon={<MapPin className="h-3.5 w-3.5" />}>Locations to be announced</Pill>
+          <Pill icon={<Calendar className="h-3.5 w-3.5" />}>Sept 7 – May 28</Pill>
+          <Pill icon={<ShieldCheck className="h-3.5 w-3.5" />}>UEFA LICENCED COACHES & PERFORMANCE SPECIALISTS</Pill>
         </div>
 
         {/* CTAs */}

@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Youtube, Send, Mail, MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import { Logo } from "./Logo";
 
 export function Footer({ onApply }: { onApply: () => void }) {
@@ -8,35 +8,20 @@ export function Footer({ onApply }: { onApply: () => void }) {
         <div>
           <Logo />
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">
-            Balancing footballing excellence with foundational academic validation and robust psychological/athletic personal growth architectures.
+            Creating a top-level football environment with professional training, strong academic support and personal development, for mental strength and physical fitness.
           </p>
 
     <div className="flex flex-col gap-4 text-sm font-medium text-neutral-400">
       {/* Email Row */}
       <div className="flex items-center gap-3 group mt-5">
-        <Mail 
-          className="w-5 h-5 transition-transform group-hover:scale-105" 
-          aria-hidden="true" 
-          style={{ color: 'var(--amber)' }}
-        />
-        <a 
-          href="mailto:admissions@gnosisperformance.ie" 
-          className="transition-colors hover:text-white"
-        >
-          admissions@gnosisperformance.ie
-        </a>
+        <Mail className="w-5 h-5 transition-transform group-hover:scale-105" aria-hidden="true" style={{ color: "var(--amber)" }} />
+        <a href="mailto:admissions@gnosisperformance.ie" className="transition-colors hover:text-white">info@gnosisperformance.com</a>
       </div>
 
       {/* Location Row */}
       <div className="flex items-start gap-3">
-        <MapPin 
-          className="w-5 h-5 shrink-0 mt-0.5" 
-          aria-hidden="true" 
-          style={{ color: 'var(--amber)' }}
-        />
-        <span className="leading-relaxed">
-          TU Blanchardstown & Corduff Sports Centre, Dublin.
-        </span>
+        <MapPin className="w-5 h-5 shrink-0 mt-0.5" aria-hidden="true" style={{ color: "var(--amber)" }} />
+        <span className="leading-relaxed">Locations to be announced.</span>
       </div>
     </div>
         </div>
@@ -50,14 +35,34 @@ export function Footer({ onApply }: { onApply: () => void }) {
         </div>
 
         <div className="lg:justify-self-end">
-          <h4 className="text-[10px] font-bold tracking-[0.32em] text-cyan-precision">CONNECT</h4>
-          <div className="mt-5 flex flex-wrap gap-2.5">
-            <Social label="WhatsApp"><WhatsAppIcon /></Social>
-            <Social label="YouTube"><Youtube className="h-4 w-4" /></Social>
-            <Social label="Facebook"><Facebook className="h-4 w-4" /></Social>
-            <Social label="Instagram"><Instagram className="h-4 w-4" /></Social>
-            <Social label="Telegram"><Send className="h-4 w-4" /></Social>
-            <Social label="X"><XIcon /></Social>
+          <h4 className="text-[10px] font-bold tracking-[0.32em] text-cyan-precision">PARTNERS</h4>
+          <div className="mt-5 flex flex-col gap-2.5">
+            <a
+              href="https://catapult.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-white text-sm text-muted-foreground"
+            >
+              Catapult
+            </a>
+
+            <a
+              href="https://cryoprotech.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-white text-sm text-muted-foreground"
+            >
+              Cryo Pro Tech
+            </a>
+
+            <a
+              href="https://gnosisperformance.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-white text-sm text-muted-foreground"
+            >
+              Gnosis Performance
+            </a>
           </div>
         </div>
       </div>
@@ -72,21 +77,4 @@ export function Footer({ onApply }: { onApply: () => void }) {
   );
 }
 
-function Social({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <a href="#" aria-label={label} className="group grid h-10 w-10 place-items-center rounded-md border border-white/10 bg-white/[0.04] text-white/80 transition hover:-translate-y-0.5" style={{ transition: 'all .15s', }} onMouseEnter={(e)=>{(e.currentTarget as HTMLElement).style.borderColor='rgba(16,185,129,0.6)'; (e.currentTarget as HTMLElement).style.backgroundColor='rgba(16,185,129,0.08)'; (e.currentTarget as HTMLElement).style.color='var(--amber)';}} onMouseLeave={(e)=>{(e.currentTarget as HTMLElement).style.borderColor=''; (e.currentTarget as HTMLElement).style.backgroundColor=''; (e.currentTarget as HTMLElement).style.color='';}}>
-      {children}
-    </a>
-  );
-}
-
-function WhatsAppIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor"><path d="M20.5 3.5A11 11 0 003.4 17.3L2 22l4.8-1.3A11 11 0 1020.5 3.5zM12 20a8 8 0 01-4.1-1.1l-.3-.2-2.8.8.8-2.7-.2-.3A8 8 0 1112 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.8c-.1.2-.3.2-.5.1-.6-.3-1.3-.8-2-1.5-.5-.6-.9-1.2-1.2-1.7-.1-.2 0-.4.1-.5l.3-.4.2-.4c0-.1 0-.3-.1-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.9.9-1.1 2.2-.4 3.6.8 1.6 1.7 2.8 3.2 4.1 1 .8 2 1.3 3 1.5.9.2 1.6.1 2.2-.1.5-.2 1.1-.6 1.3-1.1.2-.5.2-1 .1-1.1z"/></svg>
-  );
-}
-function XIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor"><path d="M18.244 2H21l-6.52 7.45L22 22h-6.828l-5.34-6.97L3.6 22H.84l6.98-7.98L1.5 2h6.964l4.83 6.39L18.244 2zm-1.196 18.27h1.88L7.05 3.62H5.05l11.998 16.65z"/></svg>
-  );
-}
+// Partner links replaced social icons; no additional helper components required.
