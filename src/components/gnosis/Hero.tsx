@@ -1,11 +1,13 @@
 import { useEffect, useRef } from "react";
-import { ChevronRight, MapPin, Calendar, ShieldCheck, Play } from "lucide-react";
+import { ChevronRight, MapPin, Calendar, ShieldCheck } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import heroVideo from "@/assets/hero-video.mp4";
-import { Logo } from "./Logo";
-import heroAudio from "@/assets/audio.mp3"
+import heroAudio from "@/assets/audio.mp3";
+import { SiteHeader } from "./SiteHeader";
+import { useApply } from "./ApplyContext";
 
-export function Hero({ onApply }: { onApply: () => void }) {
+export function Hero() {
+  const { open: onApply } = useApply();
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -69,23 +71,7 @@ export function Hero({ onApply }: { onApply: () => void }) {
       </div>
 
       {/* Navbar */}
-      <nav className="relative z-20 flex items-center justify-between px-5 py-5 sm:px-10 sm:py-7">
-        <Logo />
-        <div className="hidden md:block">
-          <p className="text-center text-[13px] font-bold tracking-[0.32em] text-white/80">
-            Developed for The Next Generation of {" "}
-            <span style={{ color: 'var(--amber)' }}>Footballers.</span>
-          </p>
-        </div>
-        
-        <button
-          onClick={onApply}
-          className="group inline-flex items-center gap-1.5 rounded-md gradient-amber px-5 py-2.5 text-[11px] font-black tracking-[0.22em] text-primary-foreground shadow-amber transition hover:scale-[1.04] active:scale-[0.98]"
-        >
-          APPLY NOW
-          <ChevronRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
-        </button>
-      </nav>
+      <SiteHeader transparent />
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-start px-5 pb-24 pt-10 sm:px-10 sm:pt-16">

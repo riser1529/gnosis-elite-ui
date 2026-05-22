@@ -1,7 +1,9 @@
 import { Mail, MapPin } from "lucide-react";
 import { Logo } from "./Logo";
+import { useApply } from "./ApplyContext";
 
-export function Footer({ onApply }: { onApply: () => void }) {
+export function Footer() {
+  const { open: onApply } = useApply();
   return (
     <footer className="relative border-t border-white/10 bg-deep">
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-10 lg:grid-cols-3">
