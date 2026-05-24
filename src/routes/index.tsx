@@ -4,6 +4,8 @@ import { Toaster } from "sonner";
 import { Preloader } from "@/components/gnosis/Preloader";
 import { Hero } from "@/components/gnosis/Hero";
 import { Footer } from "@/components/gnosis/Footer";
+import { HomeSections } from "@/components/gnosis/HomeSections";
+import { ContactCTA } from "@/components/gnosis/ContactCTA";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -25,6 +27,8 @@ function Index() {
       {loading && <Preloader onDone={() => setLoading(false)} />}
       <main className="bg-deep text-foreground">
         <Hero />
+        <HomeSections />
+        <ContactCTA />
         <Footer />
       </main>
       <Toaster theme="dark" position="top-center" richColors />

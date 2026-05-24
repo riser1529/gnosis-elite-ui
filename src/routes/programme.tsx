@@ -3,6 +3,7 @@ import { ChevronRight, Calendar, CalendarDays, Trophy, ShieldCheck, Users, Spark
 import { SiteHeader } from "@/components/gnosis/SiteHeader";
 import { Footer } from "@/components/gnosis/Footer";
 import { Reveal } from "@/components/gnosis/Reveal";
+import { ContactCTA } from "@/components/gnosis/ContactCTA";
 import { useApply } from "@/components/gnosis/ApplyContext";
 
 export const Route = createFileRoute("/programme")({
@@ -108,6 +109,7 @@ function ProgrammePage() {
         </div>
       </section>
 
+      <ContactCTA />
       <Footer />
     </main>
   );

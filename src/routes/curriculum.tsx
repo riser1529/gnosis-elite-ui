@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/gnosis/SiteHeader";
 import { Footer } from "@/components/gnosis/Footer";
 import { Reveal } from "@/components/gnosis/Reveal";
+import { ContactCTA } from "@/components/gnosis/ContactCTA";
 import { Activity, Brain, Dumbbell, GraduationCap } from "lucide-react";
 
 export const Route = createFileRoute("/curriculum")({
@@ -102,6 +103,7 @@ function CurriculumPage() {
         })}
       </section>
 
+      <ContactCTA />
       <Footer />
     </main>
   );
