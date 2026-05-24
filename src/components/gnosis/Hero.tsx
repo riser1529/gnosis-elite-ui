@@ -42,7 +42,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-[100svh] w-full overflow-hidden bg-deep">
+    <section className="relative w-full overflow-hidden bg-deep" style={{ minHeight: "min(100svh, 760px)" }}>
       {/* Invisible HTML5 Audio Element */}
       <audio
         ref={audioRef}
