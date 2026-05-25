@@ -1,130 +1,128 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ShieldCheck } from "lucide-react";
 import { SiteHeader } from "@/components/gnosis/SiteHeader";
 import { Footer } from "@/components/gnosis/Footer";
 import { Reveal } from "@/components/gnosis/Reveal";
 import { ContactCTA } from "@/components/gnosis/ContactCTA";
-import { ShieldCheck } from "lucide-react";
+import { Placeholder } from "@/components/gnosis/Placeholder";
 
 export const Route = createFileRoute("/coaches")({
   component: CoachesPage,
   head: () => ({
     meta: [
       { title: "Coaches | Gnosis Performance Football Academy" },
-      { name: "description", content: "Meet the UEFA Pro-licensed coaching staff leading the Gnosis Transition Year Academy." },
-      { property: "og:title", content: "Coaches | Gnosis Performance Football Academy" },
-      { property: "og:description", content: "Elite UEFA-licensed coaches with first-team and international pedigree." },
+      { name: "description", content: "UEFA Pro and UEFA A licensed coaches with decades of professional experience at the highest levels of the game." },
+      { property: "og:title", content: "Coaches — Gnosis Performance" },
+      { property: "og:description", content: "Learn from former Premier League players and international coaches." },
     ],
   }),
 });
 
 const coaches = [
   {
-    no: "01",
-    name: "Daniel O'Connor",
+    name: "Andy Reid",
     role: "Head Coach & Academy Director",
-    img: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&w=1200&q=80",
-    bio: "Daniel brings over twenty years of elite coaching across League of Ireland senior football and elite academy environments, with extensive scouting work into the UK Championship system. He leads our football philosophy, methodology, and matchday programme. His position-specific work with central midfielders and attacking units has shaped multiple full-time pros.",
+    bio: "Andy Reid is a former Republic of Ireland international midfielder and current academy coach at Premier League club Nottingham Forest. He enjoyed a successful professional career playing over 400 senior games, including spells with Nottingham Forest, Tottenham Hotspur, Charlton Athletic, Sunderland, and Blackpool. Andy earned 29 caps for Ireland, representing his country at senior international level for more than a decade. Since retiring, he has moved into elite coaching, helping develop the next generation of professional players.",
     badges: ["UEFA Pro Licence", "Former Premier League Player", "Republic of Ireland International", "29 Senior International Caps"],
+    placeholderLabel: "Andy Reid · Profile Photo",
+    placeholderTag: "Coach 01 · Director",
   },
   {
-    no: "02",
-    name: "James Walsh",
+    name: "Denis Hyland",
     role: "Head of Football",
-    img: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=1200&q=80",
-    bio: "James is a UEFA Pro Licensed coach with over 20 years' experience developing elite youth and international players. As founder of the TY programme, he has guided numerous players to professional contracts and senior international football. For the past 15 years, he has also served as a national team coach with Ireland's U16, U18, and U21 squads.",
+    bio: "Denis Hyland is a UEFA Pro Licensed coach with over 20 years' experience developing elite youth and international players. As founder of the TY programme, he has guided numerous players to professional contracts and senior international football. For the past 15 years, he has also served as a national team coach with Ireland's U16, U18, and U21 squads.",
     badges: ["UEFA Pro Licence", "TY Programme Founder", "National Team Coach", "20+ Years Experience"],
+    placeholderLabel: "Denis Hyland · Training Photo",
+    placeholderTag: "Coach 02 · Head of Football",
   },
 ];
 
 function CoachesPage() {
   return (
-    <main className="bg-deep text-foreground">
+    <main className="bg-deep text-foreground overflow-x-hidden">
       <SiteHeader />
 
-      <section className="relative border-b border-white/10">
+      <section className="relative overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 hero-overlay" />
+        <div className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:60px_60px]" />
         <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-10 sm:py-28 text-center">
-          <Reveal><span className="inline-block rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.32em]" style={{ border: "1px solid rgba(16,185,129,0.4)", background: "rgba(16,185,129,0.08)", color: "var(--amber)" }}>Performance Staff</span></Reveal>
-          <Reveal delay={100}><h1 className="mt-6 text-4xl sm:text-6xl font-black uppercase tracking-[-0.01em] text-white">Elite Coaching Console</h1></Reveal>
-          <Reveal delay={200}><p className="mx-auto mt-6 max-w-2xl text-muted-foreground sm:text-lg">UEFA Pro-licensed coaches with first-team, academy and senior international experience.</p></Reveal>
+          <Reveal>
+            <span className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.32em]"
+              style={{ border: "1px solid rgba(16,185,129,0.4)", background: "rgba(16,185,129,0.08)", color: "var(--amber)" }}>
+              Coaching Staff
+            </span>
+          </Reveal>
+          <Reveal delay={120}>
+            <h1 className="mt-6 text-4xl sm:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-[-0.01em] text-white">
+              Learn From The <span className="gradient-amber bg-clip-text text-transparent">Best</span>
+            </h1>
+          </Reveal>
+          <Reveal delay={220}>
+            <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
+              Our coaching team brings together UEFA Pro and UEFA A licensed coaches with decades of professional playing and coaching experience at the highest levels of the game.
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 sm:px-10 py-20 sm:py-28 space-y-20 sm:space-y-28">
-        {coaches.map((c, i) => {
-          const flipped = i % 2 === 1;
-          return (
-            <Reveal key={c.name}>
-              <article
-                className={`group grid items-stretch gap-8 lg:gap-12 lg:grid-cols-[5fr_7fr] ${flipped ? "lg:[direction:rtl]" : ""}`}
-              >
-                {/* Portrait */}
-                <div
-                  className={`relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md transition ${flipped ? "lg:[direction:ltr]" : ""}`}
-                  style={{ maxHeight: "560px", transition: "all .4s" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 0 30px rgba(16,185,129,0.22)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "none")}
-                >
-                  <div className="aspect-[4/5] w-full">
-                    <img
-                      src={c.img}
-                      alt={c.name}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-all duration-[1400ms] ease-out scale-[1.03] group-hover:scale-110 filter saturate-[0.65] group-hover:saturate-125"
-                    />
+      {/* Coach profile sheets */}
+      <section className="relative overflow-hidden">
+        <div className="mx-auto max-w-7xl px-5 sm:px-10 py-16 sm:py-24 space-y-16 sm:space-y-24">
+          {coaches.map((c, i) => {
+            const reverse = i % 2 === 1;
+            return (
+              <Reveal key={c.name}>
+                <article className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-start">
+                  <div className={`min-w-0 ${reverse ? "lg:order-2" : ""}`}>
+                    <Placeholder label={c.placeholderLabel} tag={c.placeholderTag} ratio="aspect-[3/4]" />
                   </div>
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-                  <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-md border border-white/20 bg-black/50 px-3 py-1.5 text-[10px] font-black tracking-[0.28em] text-white backdrop-blur-md">
-                    COACH {c.no}
-                  </div>
-                  <div className="absolute left-5 right-5 bottom-5">
-                    <div className="text-[10px] font-black tracking-[0.28em] uppercase" style={{ color: "var(--amber)" }}>{c.role}</div>
-                    <div className="mt-1 text-3xl sm:text-4xl font-black text-white leading-tight">{c.name}</div>
-                  </div>
-                </div>
-
-                {/* Info console */}
-                <div className={`flex flex-col gap-6 ${flipped ? "lg:[direction:ltr]" : ""}`}>
-                  <div
-                    className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-7 sm:p-8 transition hover:border-amber/40"
-                    style={{ transition: "all .35s" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 0 20px rgba(16,185,129,0.22)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "none")}
-                  >
-                    <span className="text-[10px] font-black tracking-[0.32em] text-cyan-precision uppercase">// Biography</span>
-                    <p className="mt-3 text-sm sm:text-base leading-relaxed text-white/85">{c.bio}</p>
-                  </div>
-
-                  <div>
-                    <span className="text-[10px] font-black tracking-[0.32em] text-cyan-precision uppercase">// Verification Vectors</span>
-                    <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                  <div className={`min-w-0 ${reverse ? "lg:order-1" : ""}`}>
+                    <span className="text-[10px] font-black tracking-[0.32em] text-cyan-precision uppercase">Coach 0{i + 1}</span>
+                    <h2 className="mt-3 text-3xl sm:text-4xl font-black uppercase tracking-tight text-white break-words">{c.name}</h2>
+                    <p className="mt-2 text-sm font-bold tracking-[0.18em] uppercase" style={{ color: "var(--amber)" }}>{c.role}</p>
+                    <p className="mt-5 text-muted-foreground leading-relaxed">{c.bio}</p>
+                    <div className="mt-6 flex flex-wrap gap-2">
                       {c.badges.map((b) => (
-                        <div
+                        <span
                           key={b}
-                          className="flex items-center gap-3 rounded-xl border bg-black/30 px-4 py-3 transition"
-                          style={{ borderColor: "rgba(16,185,129,0.30)", transition: "all .3s" }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.boxShadow = "0 0 18px rgba(16,185,129,0.30)";
-                            e.currentTarget.style.borderColor = "rgba(16,185,129,0.6)";
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.boxShadow = "none";
-                            e.currentTarget.style.borderColor = "rgba(16,185,129,0.30)";
-                          }}
+                          className="inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-[10px] font-black tracking-[0.22em] uppercase"
+                          style={{ borderColor: "rgba(16,185,129,0.4)", background: "rgba(16,185,129,0.06)", color: "var(--amber)" }}
                         >
-                          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md border" style={{ borderColor: "rgba(16,185,129,0.5)" }}>
-                            <ShieldCheck className="h-3.5 w-3.5" style={{ color: "var(--amber)" }} />
-                          </span>
-                          <span className="text-sm font-bold text-white">{b}</span>
-                        </div>
+                          <ShieldCheck className="h-3 w-3" />
+                          <span className="break-words">{b}</span>
+                        </span>
                       ))}
                     </div>
                   </div>
-                </div>
-              </article>
+                </article>
+              </Reveal>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Media block */}
+      <section className="relative border-t border-white/10 bg-black/40 overflow-hidden">
+        <div className="mx-auto max-w-7xl px-5 sm:px-10 py-16 sm:py-24">
+          <Reveal>
+            <div className="max-w-2xl">
+              <span className="text-[10px] font-black tracking-[0.32em] text-cyan-precision uppercase">// On The Training Ground</span>
+              <h2 className="mt-3 text-3xl sm:text-4xl font-black uppercase tracking-tight text-white">On The Training Ground</h2>
+              <p className="mt-4 text-muted-foreground">The same elite-level coaching your son will receive.</p>
+            </div>
+          </Reveal>
+          <div className="mt-10 grid gap-4 sm:grid-cols-6">
+            <Reveal className="sm:col-span-4 min-w-0">
+              <Placeholder label="Pitch Drill · Live Session" tag="Scene 01" ratio="aspect-[16/10]" />
             </Reveal>
-          );
-        })}
+            <Reveal delay={120} className="sm:col-span-2 min-w-0">
+              <Placeholder label="Tactics Whiteboard" tag="Scene 02" ratio="aspect-[4/5]" />
+            </Reveal>
+            <Reveal delay={180} className="sm:col-span-6 min-w-0">
+              <Placeholder label="Match-Day Huddle" tag="Scene 03" ratio="aspect-[21/9]" />
+            </Reveal>
+          </div>
+        </div>
       </section>
 
       <ContactCTA />

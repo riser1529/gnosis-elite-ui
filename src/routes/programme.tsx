@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChevronRight, Calendar, CalendarDays, Trophy, ShieldCheck, Users, Sparkles, Target } from "lucide-react";
+import { ChevronRight, Calendar, CalendarDays, Flag, Sparkles, Check } from "lucide-react";
 import { SiteHeader } from "@/components/gnosis/SiteHeader";
 import { Footer } from "@/components/gnosis/Footer";
 import { Reveal } from "@/components/gnosis/Reveal";
 import { ContactCTA } from "@/components/gnosis/ContactCTA";
+import { Placeholder } from "@/components/gnosis/Placeholder";
 import { useApply } from "@/components/gnosis/ApplyContext";
 
 export const Route = createFileRoute("/programme")({
@@ -11,35 +12,50 @@ export const Route = createFileRoute("/programme")({
   head: () => ({
     meta: [
       { title: "Programme | Gnosis Performance Football Academy" },
-      { name: "description", content: "Full-time Transition Year football & performance programme. Pro environment, elite coaching, top-level exposure for September 2026." },
+      { name: "description", content: "A full-time Transition Year football and performance pathway. Train, recover and study like a professional, nine months a year, five days a week." },
+      { property: "og:title", content: "The Programme — Gnosis Performance" },
+      { property: "og:description", content: "Full-time TY football and performance. September 2026 intake." },
     ],
   }),
 });
 
-const stats = [
-  { k: "5 / Week", v: "Training Days", icon: CalendarDays },
-  { k: "9 Months", v: "Programme Length", icon: Calendar },
-  { k: "Sept 2026", v: "Start Date", icon: Trophy },
+const why = [
+  {
+    title: "UEFA-Licensed Head Coaches",
+    body: "Andy Reid (UEFA PRO) and Denis Hyland (UEFA PRO) bring professional playing and coaching experience to this elite program.",
+  },
+  {
+    title: "Full-Time Programme",
+    body: "Players train 5 days a week in a full-time professional environment.",
+  },
+  {
+    title: "Academic Integration",
+    body: "We're an independent school working alongside Tulsa to ensure players fulfill their TY requirements while training at the highest level.",
+  },
+  {
+    title: "Small Group Sizes",
+    body: "We keep squad numbers deliberately small to ensure every player receives individual attention and detailed coaching feedback.",
+  },
 ];
 
-const pillars = [
-  { title: "Proven Foundation", body: "A structured curriculum built on UEFA Pro methodologies and modern performance science. Every block, every session, accountable to outcomes.", icon: ShieldCheck },
-  { title: "Elite Coaching Staff", body: "Coaches with first-team, academy and international experience. Position-specific coaching from people who've operated at the highest levels.", icon: Users },
-  { title: "Professional Environment", body: "Pro-style daily rhythm: gym, pitch, video analysis, recovery and academic alignment — engineered to mirror full-time football clubs.", icon: Sparkles },
-  { title: "Top-Level Exposure", body: "Direct visibility to scouts, performance analysts and partner clubs across Ireland, the UK and Europe. We open doors that stay open.", icon: Target },
+const metricBlocks = [
+  { k: "5 / Week", v: "Training Days", icon: CalendarDays },
+  { k: "9 Months", v: "Programme Length", icon: Calendar },
+  { k: "Sept 3, 2026", v: "Start Date", icon: Sparkles },
+  { k: "OPEN FEB 26", v: "Applications Status", icon: Flag },
 ];
 
 function ProgrammePage() {
   const { open } = useApply();
   return (
-    <main className="bg-deep text-foreground">
+    <main className="bg-deep text-foreground overflow-x-hidden">
       <SiteHeader />
 
-      {/* HERO */}
+      {/* ===== SECTION A: HEADER ===== */}
       <section className="relative overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 hero-overlay" />
         <div className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:60px_60px]" />
-        <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-10 sm:py-32 text-center">
+        <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-10 sm:py-28 text-center">
           <Reveal>
             <span className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.32em]"
               style={{ border: "1px solid rgba(16,185,129,0.4)", background: "rgba(16,185,129,0.08)", color: "var(--amber)" }}>
@@ -47,7 +63,7 @@ function ProgrammePage() {
             </span>
           </Reveal>
           <Reveal delay={120}>
-            <h1 className="mt-6 text-balance text-4xl sm:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-[-0.01em] text-white">
+            <h1 className="mt-6 text-balance text-4xl sm:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-[-0.01em] text-white break-words">
               The <span className="gradient-amber bg-clip-text text-transparent">Programme</span>
             </h1>
           </Reveal>
@@ -66,46 +82,76 @@ function ProgrammePage() {
         </div>
       </section>
 
-      {/* STATS MATRIX */}
-      <section className="relative mx-auto max-w-7xl px-5 sm:px-10 -mt-12">
-        <Reveal>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-px rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-md shadow-deep">
-            {stats.map((s, i) => (
-              <Reveal key={s.v} delay={i * 120} className="group relative bg-deep/80 p-8 sm:p-10 transition hover:bg-white/[0.04]">
-                <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition" style={{ background: "radial-gradient(120% 80% at 50% 0%, rgba(16,185,129,0.10), transparent 70%)" }} />
-                <s.icon className="h-6 w-6" style={{ color: "var(--amber)" }} />
-                <div className="mt-4 text-3xl sm:text-4xl font-black tracking-tight text-white">{s.k}</div>
-                <div className="mt-2 text-[10px] font-bold tracking-[0.32em] text-cyan-precision uppercase">{s.v}</div>
-              </Reveal>
-            ))}
+      {/* ===== SECTION B: OUR MISSION (split) ===== */}
+      <section className="relative border-b border-white/10 overflow-hidden">
+        <div className="mx-auto max-w-7xl px-5 sm:px-10 py-20 sm:py-28">
+          <div className="grid gap-10 lg:grid-cols-2 lg:gap-14 items-center">
+            <Reveal className="min-w-0">
+              <div>
+                <span className="text-[10px] font-black tracking-[0.32em] text-cyan-precision uppercase">Our Mission</span>
+                <h2 className="mt-3 text-3xl sm:text-4xl font-black uppercase tracking-tight text-white">People-First Performance.</h2>
+                <p className="mt-6 text-muted-foreground leading-relaxed">
+                  At Gnosis Performance Football Academy, our mission is people-first. We create a safe, inclusive, and high-performance environment where every player — regardless of background — is empowered to grow as an athlete, a student, and a human being. We believe that elite football and academic excellence are not mutually exclusive. Our programme has been designed from the ground up to develop the complete footballer: technically excellent, physically elite, tactically intelligent, and mentally resilient. With over 20 years of experience producing players who have gone on to represent Ireland at underage and senior international level, to sign professional contracts in the League of Ireland and overseas, and to earn full scholarships to US colleges, our track record speaks for itself.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={120} className="min-w-0">
+              <Placeholder label="Premium Training Session" tag="Mission · On-Pitch" ratio="aspect-[4/3]" />
+            </Reveal>
           </div>
-        </Reveal>
+        </div>
       </section>
 
-      {/* PILLARS */}
-      <section className="mx-auto max-w-7xl px-5 sm:px-10 py-24 sm:py-32">
-        <Reveal>
-          <div className="max-w-2xl">
-            <span className="text-[10px] font-bold tracking-[0.32em] text-cyan-precision uppercase">Our Pillars</span>
-            <h2 className="mt-4 text-3xl sm:text-5xl font-black tracking-tight text-white">Engineered around four foundations.</h2>
-            <p className="mt-4 text-muted-foreground">Each pillar is delivered weekly, measured monthly and reviewed termly.</p>
-          </div>
-        </Reveal>
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {pillars.map((p, i) => (
-            <Reveal key={p.title} delay={i * 100}>
-              <article className="group relative h-full rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6 transition hover:scale-[1.02] hover:border-amber/40 shadow-deep overflow-hidden">
-                <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "radial-gradient(80% 60% at 50% 0%, rgba(16,185,129,0.14), transparent 70%)" }} />
-                <div className="relative">
-                  <div className="grid h-11 w-11 place-items-center rounded-lg gradient-amber shadow-amber">
-                    <p.icon className="h-5 w-5 text-primary-foreground" />
+      {/* ===== SECTION C: WHY CHOOSE US ===== */}
+      <section className="relative overflow-hidden">
+        <div className="mx-auto max-w-7xl px-5 sm:px-10 py-20 sm:py-28">
+          <Reveal>
+            <div className="max-w-2xl">
+              <span className="text-[10px] font-black tracking-[0.32em] text-cyan-precision uppercase">// Why Choose Us</span>
+              <h2 className="mt-3 text-3xl sm:text-5xl font-black uppercase tracking-tight text-white">Why Choose Us?</h2>
+            </div>
+          </Reveal>
+
+          <div className="mt-12 grid gap-8 lg:grid-cols-2">
+            {/* Left: features */}
+            <div className="grid gap-3 min-w-0">
+              {why.map((w, i) => (
+                <Reveal key={w.title} delay={i * 90}>
+                  <div className="group rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-5 sm:p-6 transition hover:border-amber/40">
+                    <div className="flex items-start gap-3">
+                      <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-md border" style={{ borderColor: "rgba(16,185,129,0.5)" }}>
+                        <Check className="h-3.5 w-3.5" style={{ color: "var(--amber)" }} />
+                      </span>
+                      <div className="min-w-0">
+                        <div className="text-sm font-black text-white tracking-wide">{w.title}</div>
+                        <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{w.body}</p>
+                      </div>
+                    </div>
                   </div>
-                  <h3 className="mt-5 text-lg font-black uppercase tracking-[0.12em] text-white">{p.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.body}</p>
-                </div>
-              </article>
-            </Reveal>
-          ))}
+                </Reveal>
+              ))}
+            </div>
+
+            {/* Right: 4 HUD metric blocks */}
+            <div className="grid grid-cols-2 gap-3 min-w-0">
+              {metricBlocks.map((b, i) => (
+                <Reveal key={b.v} delay={i * 90}>
+                  <div className="group relative h-full rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-5 transition hover:border-amber/40">
+                    <b.icon className="h-5 w-5" style={{ color: "var(--amber)" }} />
+                    <div className="mt-4 text-xl sm:text-2xl font-black text-white tracking-tight break-words" style={{ textShadow: "0 0 18px rgba(16,185,129,0.25)" }}>{b.k}</div>
+                    <div className="mt-2 text-[10px] font-bold tracking-[0.28em] text-cyan-precision uppercase break-words">{b.v}</div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+
+          {/* Asset frame */}
+          <Reveal delay={120}>
+            <div className="mt-12">
+              <Placeholder label="Academy Drills · Full-Pitch Session" tag="Asset Frame · Pitch Ops" ratio="aspect-[21/9]" />
+            </div>
+          </Reveal>
         </div>
       </section>
 

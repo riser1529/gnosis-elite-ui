@@ -1,134 +1,154 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { Quote, Star } from "lucide-react";
 import { SiteHeader } from "@/components/gnosis/SiteHeader";
 import { Footer } from "@/components/gnosis/Footer";
 import { Reveal } from "@/components/gnosis/Reveal";
 import { ContactCTA } from "@/components/gnosis/ContactCTA";
-import { Quote, Star } from "lucide-react";
-import { useState } from "react";
 
 export const Route = createFileRoute("/testimonials")({
   component: TestimonialsPage,
   head: () => ({
     meta: [
       { title: "Testimonials | Gnosis Performance Football Academy" },
-      { name: "description", content: "What players and parents say about the Gnosis Performance Transition Year programme." },
-      { property: "og:title", content: "Testimonials | Gnosis Performance Football Academy" },
-      { property: "og:description", content: "Real stories from professional players and parents who experienced the programme." },
+      { name: "description", content: "Hear directly from the players who've been through the programme and the parents who've seen the transformation first-hand." },
+      { property: "og:title", content: "Testimonials — Gnosis Performance" },
+      { property: "og:description", content: "What our players and parents say about the Gnosis pathway." },
     ],
   }),
 });
 
-const players = [
+type Card = { quote: string; name: string; tag: string };
+
+const players: Card[] = [
   {
-    name: "Killian Phillips",
-    role: "REP OF IRELAND SENIOR INTERNATIONAL · ST MIRREN FC",
     quote:
       "When I began working with Denis, my goal was to become a professional footballer. He helped me develop my weaknesses, improve my overall game, and gave me the belief and guidance needed to pursue that ambition. Completing the TY programme was one of the best decisions I made, and I'm very grateful for the support and standards he provided throughout my journey.",
+    name: "Killian Phillips",
+    tag: "Rep of Ireland Senior International Player · St Mirren FC",
   },
   {
-    name: "Aidomo Emakhu",
-    role: "PROFESSIONAL FOOTBALLER · MILLWALL FC",
     quote:
       "The TY programme played a huge role in improving my physical performance and preparing me for the demands of the next level. Denis' guidance and high standards pushed me to improve every day, teaching me the consistency and discipline required to perform and giving me a strong foundation to progress in my football career.",
+    name: "Aidomo Emakhu",
+    tag: "Professional Footballer · Millwall FC",
   },
 ];
 
-const parents = [
+const parents: Card[] = [
   {
-    name: "Lorraine Cailloce",
-    role: "PARENT · LUCA & KILLIAN CAILLOCE — UCD AFC",
     quote:
       "From day one, the TY programme with Denis provided a professional and supportive environment. We saw real improvements in our children's football ability, maturity, and discipline. Both of my boys represented their country and now successfully combine football and education with UCD. The programme genuinely prepares players for both their sporting and academic futures.",
+    name: "Lorraine Cailloce",
+    tag: "Parent · Luca & Killian Cailloce — UCD AFC",
   },
   {
-    name: "Fran Sheridan",
-    role: "PARENT · RYAN SHERIDAN — ST PATRICK'S ATHLETIC FC & ROI U17",
     quote:
       "Denis's TY programme was one of the best decisions we made for our son. From the very beginning, he stepped into a professional and supportive environment built on high standards. We saw tremendous progress in his football ability, along with real growth in his self-belief, discipline, and game awareness. The programme has been instrumental in preparing him for the next steps in both his football and educational journey.",
+    name: "Fran Sheridan",
+    tag: "Parent · Ryan Sheridan — St Patrick's Athletic FC & Rep of Ireland U17 International",
   },
 ];
 
-const tabs = [
-  { id: "players", label: "FROM THE PLAYERS", data: players },
-  { id: "parents", label: "FROM THE PARENTS", data: parents },
-] as const;
+const metrics = [
+  { v: "100%", label: "Would Recommend" },
+  { v: "20+", label: "Years Track Record" },
+  { v: "136", label: "Internationals Produced" },
+  { v: "25", label: "USA Scholarships" },
+];
 
 function TestimonialsPage() {
-  const [tab, setTab] = useState<(typeof tabs)[number]["id"]>("players");
-  const active = tabs.find((t) => t.id === tab)!;
-  const idx = tabs.findIndex((t) => t.id === tab);
+  const [tab, setTab] = useState<"players" | "parents">("players");
+  const cards = tab === "players" ? players : parents;
 
   return (
-    <main className="bg-deep text-foreground">
+    <main className="bg-deep text-foreground overflow-x-hidden">
       <SiteHeader />
 
-      <section className="relative border-b border-white/10">
+      <section className="relative overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 hero-overlay" />
+        <div className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:60px_60px]" />
         <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-10 sm:py-28 text-center">
           <Reveal>
-            <span className="inline-block rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.32em]" style={{ border: "1px solid rgba(16,185,129,0.4)", background: "rgba(16,185,129,0.08)", color: "var(--amber)" }}>
-              Voices From The Pathway
+            <span className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.32em]"
+              style={{ border: "1px solid rgba(16,185,129,0.4)", background: "rgba(16,185,129,0.08)", color: "var(--amber)" }}>
+              Testimonials
             </span>
           </Reveal>
-          <Reveal delay={100}>
-            <h1 className="mt-6 text-4xl sm:text-6xl font-black uppercase tracking-[-0.01em] text-white">What Our Players<br />& Parents Say</h1>
+          <Reveal delay={120}>
+            <h1 className="mt-6 text-3xl sm:text-5xl lg:text-6xl font-black uppercase leading-[0.95] tracking-[-0.01em] text-white">
+              What Our Players & <span className="gradient-amber bg-clip-text text-transparent">Parents Say</span>
+            </h1>
           </Reveal>
-          <Reveal delay={200}>
-            <p className="mx-auto mt-6 max-w-2xl text-muted-foreground sm:text-lg">
-              Real outcomes. Professional debuts, international caps, and university pathways — in their own words.
+          <Reveal delay={220}>
+            <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
+              Hear directly from the players who've been through the programme and the parents who've seen the transformation first-hand.
             </p>
           </Reveal>
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-5 sm:px-10 py-16 sm:py-20">
-        <Reveal>
-          <div className="relative grid grid-cols-2 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-1.5">
-            <span
-              aria-hidden
-              className="absolute top-1.5 bottom-1.5 left-1.5 rounded-xl gradient-amber shadow-amber transition-transform duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]"
-              style={{
-                width: "calc(50% - 0.375rem)",
-                transform: `translateX(${idx * 100}%)`,
-              }}
-            />
-            {tabs.map((t) => {
-              const isActive = t.id === tab;
-              return (
-                <button
-                  key={t.id}
-                  onClick={() => setTab(t.id)}
-                  className={`relative z-10 rounded-xl px-4 py-4 text-[11px] sm:text-xs font-black tracking-[0.24em] uppercase transition ${
-                    isActive ? "text-primary-foreground" : "text-white/70 hover:text-white"
-                  }`}
-                >
-                  {t.label}
-                </button>
-              );
-            })}
-          </div>
-        </Reveal>
+      {/* TABS + CARDS */}
+      <section className="relative overflow-hidden">
+        <div className="mx-auto max-w-7xl px-5 sm:px-10 py-16 sm:py-20">
+          <Reveal>
+            <div className="relative mx-auto inline-flex w-full max-w-md items-center rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-md p-1">
+              {(["players", "parents"] as const).map((t) => {
+                const active = tab === t;
+                return (
+                  <button
+                    key={t}
+                    onClick={() => setTab(t)}
+                    className={`relative flex-1 rounded-full px-4 py-2.5 text-[10px] sm:text-[11px] font-black tracking-[0.24em] uppercase transition ${active ? "text-primary-foreground" : "text-white/70 hover:text-white"}`}
+                    style={active ? { background: "var(--gradient-amber)", boxShadow: "0 0 20px rgba(16,185,129,0.4)" } : undefined}
+                  >
+                    From The {t === "players" ? "Players" : "Parents"}
+                  </button>
+                );
+              })}
+            </div>
+          </Reveal>
 
-        <div key={active.id} className="mt-10 grid gap-6 md:grid-cols-2">
-          {active.data.map((item, i) => (
-            <Reveal key={item.name} delay={i * 120}>
-              <article className="group relative h-full rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-7 sm:p-8 transition hover:border-amber/40" style={{ transition: "border-color .4s, box-shadow .4s, transform .4s" }}
-                onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 0 30px rgba(16,185,129,0.18)")}
-                onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "none")}>
-                <Quote className="h-7 w-7" style={{ color: "var(--amber)" }} />
-                <div className="mt-4 flex gap-1">
-                  {Array.from({ length: 5 }).map((_, k) => (
-                    <Star key={k} className="h-3.5 w-3.5 fill-current" style={{ color: "var(--amber)" }} />
-                  ))}
+          <div className="mt-10 grid gap-5 lg:grid-cols-2">
+            {cards.map((c, i) => (
+              <Reveal key={c.name} delay={i * 120}>
+                <article className="group relative h-full min-w-0 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6 sm:p-8 transition hover:border-amber/40">
+                  <div className="flex items-center justify-between gap-4">
+                    <Quote className="h-8 w-8 shrink-0" style={{ color: "var(--amber)" }} />
+                    <div className="flex items-center gap-1">
+                      {Array.from({ length: 5 }).map((_, j) => (
+                        <Star key={j} className="h-4 w-4 fill-current" style={{ color: "var(--amber)", filter: "drop-shadow(0 0 6px rgba(16,185,129,0.6))" }} />
+                      ))}
+                    </div>
+                  </div>
+                  <p className="mt-5 text-base sm:text-lg leading-relaxed text-white/90">"{c.quote}"</p>
+                  <div className="mt-6 border-t border-white/10 pt-4">
+                    <div className="text-sm font-black text-white break-words">{c.name}</div>
+                    <div className="text-[10px] font-bold tracking-[0.24em] text-cyan-precision uppercase mt-1 break-words">{c.tag}</div>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* METRIC VERIFICATION BOARD */}
+      <section className="relative border-t border-white/10 bg-black/40 overflow-hidden">
+        <div className="mx-auto max-w-7xl px-5 sm:px-10 py-14 sm:py-16">
+          <Reveal>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-md">
+              {metrics.map((m, i) => (
+                <div key={m.v + i} className="min-w-0 bg-deep p-5 sm:p-6">
+                  <div className="text-[10px] font-bold tracking-[0.28em] text-cyan-precision">{String(i + 1).padStart(2, "0")}</div>
+                  <div className="mt-2 text-4xl sm:text-5xl font-black tracking-tight break-words" style={{ color: "var(--amber)", textShadow: "0 0 24px rgba(16,185,129,0.35)" }}>
+                    {m.v}
+                  </div>
+                  <div className="mt-2 text-[10px] sm:text-[11px] font-bold leading-snug text-white/75 uppercase tracking-wide break-words">{m.label}</div>
                 </div>
-                <p className="mt-5 text-sm sm:text-base leading-relaxed text-white/85">"{item.quote}"</p>
-                <div className="mt-7 pt-5 border-t border-white/10">
-                  <div className="text-base font-black text-white">{item.name}</div>
-                  <div className="mt-1 text-[10px] font-bold tracking-[0.28em] text-cyan-precision uppercase">{item.role}</div>
-                </div>
-              </article>
-            </Reveal>
-          ))}
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
 

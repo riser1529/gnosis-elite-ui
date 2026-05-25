@@ -78,6 +78,8 @@
 
 @layer base {
   * { border-color: var(--color-border); }
+  html, body { overflow-x: hidden; max-width: 100%; }
+  img, video, svg { max-width: 100%; height: auto; }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
