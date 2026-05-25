@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProgrammeRouteImport } from './routes/programme'
 import { Route as CurriculumRouteImport } from './routes/curriculum'
+import { Route as CoachesRouteImport } from './routes/coaches'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ProgrammeRoute = ProgrammeRouteImport.update({
@@ -23,6 +24,11 @@ const CurriculumRoute = CurriculumRouteImport.update({
   path: '/curriculum',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CoachesRoute = CoachesRouteImport.update({
+  id: '/coaches',
+  path: '/coaches',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,30 +37,34 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/coaches': typeof CoachesRoute
   '/curriculum': typeof CurriculumRoute
   '/programme': typeof ProgrammeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/coaches': typeof CoachesRoute
   '/curriculum': typeof CurriculumRoute
   '/programme': typeof ProgrammeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/coaches': typeof CoachesRoute
   '/curriculum': typeof CurriculumRoute
   '/programme': typeof ProgrammeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/curriculum' | '/programme'
+  fullPaths: '/' | '/coaches' | '/curriculum' | '/programme'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/curriculum' | '/programme'
-  id: '__root__' | '/' | '/curriculum' | '/programme'
+  to: '/' | '/coaches' | '/curriculum' | '/programme'
+  id: '__root__' | '/' | '/coaches' | '/curriculum' | '/programme'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CoachesRoute: typeof CoachesRoute
   CurriculumRoute: typeof CurriculumRoute
   ProgrammeRoute: typeof ProgrammeRoute
 }
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CurriculumRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/coaches': {
+      id: '/coaches'
+      path: '/coaches'
+      fullPath: '/coaches'
+      preLoaderRoute: typeof CoachesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CoachesRoute: CoachesRoute,
   CurriculumRoute: CurriculumRoute,
   ProgrammeRoute: ProgrammeRoute,
 }
