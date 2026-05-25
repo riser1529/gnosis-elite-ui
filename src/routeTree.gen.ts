@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TestimonialsRouteImport } from './routes/testimonials'
 import { Route as ProgrammeRouteImport } from './routes/programme'
 import { Route as LocationsRouteImport } from './routes/locations'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as CurriculumRouteImport } from './routes/curriculum'
 import { Route as CoachesRouteImport } from './routes/coaches'
 import { Route as IndexRouteImport } from './routes/index'
@@ -29,6 +30,11 @@ const ProgrammeRoute = ProgrammeRouteImport.update({
 const LocationsRoute = LocationsRouteImport.update({
   id: '/locations',
   path: '/locations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CurriculumRoute = CurriculumRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/coaches': typeof CoachesRoute
   '/curriculum': typeof CurriculumRoute
+  '/faq': typeof FaqRoute
   '/locations': typeof LocationsRoute
   '/programme': typeof ProgrammeRoute
   '/testimonials': typeof TestimonialsRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/coaches': typeof CoachesRoute
   '/curriculum': typeof CurriculumRoute
+  '/faq': typeof FaqRoute
   '/locations': typeof LocationsRoute
   '/programme': typeof ProgrammeRoute
   '/testimonials': typeof TestimonialsRoute
@@ -68,6 +76,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/coaches': typeof CoachesRoute
   '/curriculum': typeof CurriculumRoute
+  '/faq': typeof FaqRoute
   '/locations': typeof LocationsRoute
   '/programme': typeof ProgrammeRoute
   '/testimonials': typeof TestimonialsRoute
@@ -78,6 +87,7 @@ export interface FileRouteTypes {
     | '/'
     | '/coaches'
     | '/curriculum'
+    | '/faq'
     | '/locations'
     | '/programme'
     | '/testimonials'
@@ -86,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/coaches'
     | '/curriculum'
+    | '/faq'
     | '/locations'
     | '/programme'
     | '/testimonials'
@@ -94,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/coaches'
     | '/curriculum'
+    | '/faq'
     | '/locations'
     | '/programme'
     | '/testimonials'
@@ -103,6 +115,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CoachesRoute: typeof CoachesRoute
   CurriculumRoute: typeof CurriculumRoute
+  FaqRoute: typeof FaqRoute
   LocationsRoute: typeof LocationsRoute
   ProgrammeRoute: typeof ProgrammeRoute
   TestimonialsRoute: typeof TestimonialsRoute
@@ -129,6 +142,13 @@ declare module '@tanstack/react-router' {
       path: '/locations'
       fullPath: '/locations'
       preLoaderRoute: typeof LocationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/curriculum': {
@@ -159,6 +179,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CoachesRoute: CoachesRoute,
   CurriculumRoute: CurriculumRoute,
+  FaqRoute: FaqRoute,
   LocationsRoute: LocationsRoute,
   ProgrammeRoute: ProgrammeRoute,
   TestimonialsRoute: TestimonialsRoute,
