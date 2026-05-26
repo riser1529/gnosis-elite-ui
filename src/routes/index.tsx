@@ -1,7 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
 import { Toaster } from "sonner";
-import { Preloader } from "@/components/gnosis/Preloader";
 import { Hero } from "@/components/gnosis/Hero";
 import { Footer } from "@/components/gnosis/Footer";
 import { HomeSections } from "@/components/gnosis/HomeSections";
@@ -20,11 +18,8 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const [loading, setLoading] = useState(true);
-
   return (
     <>
-      {loading && <Preloader onDone={() => setLoading(false)} />}
       <main className="bg-deep text-foreground">
         <Hero />
         <HomeSections />
