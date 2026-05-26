@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Check, ExternalLink, MapPin } from "lucide-react";
-import { SiteHeader } from "@/components/gnosis/SiteHeader";
 import { Footer } from "@/components/gnosis/Footer";
 import { Reveal } from "@/components/gnosis/Reveal";
 import { ContactCTA } from "@/components/gnosis/ContactCTA";
 import { Placeholder } from "@/components/gnosis/Placeholder";
+import { PageHero } from "@/components/gnosis/PageHero";
 
 export const Route = createFileRoute("/locations")({
   component: LocationsPage,
@@ -62,30 +62,11 @@ const facilities = [
 function LocationsPage() {
   return (
     <main className="bg-deep text-foreground overflow-x-hidden">
-      <SiteHeader />
-
-      <section className="relative overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 hero-overlay" />
-        <div className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:60px_60px]" />
-        <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-10 sm:py-28 text-center">
-          <Reveal>
-            <span className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.32em]"
-              style={{ border: "1px solid rgba(16,185,129,0.4)", background: "rgba(16,185,129,0.08)", color: "var(--amber)" }}>
-              Our Facilities
-            </span>
-          </Reveal>
-          <Reveal delay={120}>
-            <h1 className="mt-6 text-4xl sm:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-[-0.01em] text-white">
-              Academy <span className="gradient-amber bg-clip-text text-transparent">Facilities</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={220}>
-            <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
-              Train where the pros train. Our facilities provide everything a serious footballer needs to develop to their full potential.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Our Facilities"
+        title={<>Academy <span className="gradient-amber bg-clip-text text-transparent">Facilities</span></>}
+        description="Train where the pros train. Our facilities provide everything a serious footballer needs to develop to their full potential."
+      />
 
       <section className="relative overflow-hidden">
         <div className="mx-auto max-w-7xl px-5 sm:px-10 py-16 sm:py-24 space-y-16 sm:space-y-24">
