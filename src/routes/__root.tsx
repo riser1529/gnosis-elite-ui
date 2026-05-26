@@ -3,8 +3,13 @@ import {
   Link,
   createRootRoute,
   useRouter,
+  useRouterState,
 } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { ApplyProvider } from "@/components/gnosis/ApplyContext";
+import { GlobalAudio } from "@/components/gnosis/GlobalAudio";
+import { SiteHeader } from "@/components/gnosis/SiteHeader";
+import { Preloader } from "@/components/gnosis/Preloader";
 
 function NotFoundComponent() {
   return (
@@ -70,8 +75,28 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
+  const routerState = useRouterState();
+  const [loaded, setLoaded] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return sessionStorage.getItem("gnosis_loaded") === "1";
+  });
+  // Scroll to top on every navigation so users land on hero of next page.
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+  }, [routerState.location.pathname]);
+
   return (
     <ApplyProvider>
+      {!loaded && (
+        <Preloader
+          onDone={() => {
+            sessionStorage.setItem("gnosis_loaded", "1");
+            setLoaded(true);
+          }}
+        />
+      )}
+      <GlobalAudio />
+      <SiteHeader />
       <Outlet />
     </ApplyProvider>
   );

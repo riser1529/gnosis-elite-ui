@@ -1,56 +1,13 @@
-import { useEffect, useRef } from "react";
 import { ChevronRight, MapPin, Calendar, ShieldCheck } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import heroVideo from "@/assets/hero-video.mp4";
-import heroAudio from "@/assets/audio.mp3";
-import { SiteHeader } from "./SiteHeader";
 import { useApply } from "./ApplyContext";
 
 export function Hero() {
   const { open: onApply } = useApply();
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  useEffect(() => {
-    const currentAudio = audioRef.current;
-    if (!currentAudio) return;
-
-    currentAudio.volume = 0.20; // Set professional ambient master volume (20%)
-
-    // 1. Attempt immediate programmatic autoplay
-    currentAudio.play().catch(() => {
-      // 2. Browser blocked instant autoplay (expected behavior).
-      // We set up a subtle, one-time listener for the user's first natural interaction.
-      const handleUserInteraction = () => {
-        if (currentAudio) {
-          currentAudio.play()
-            .then(() => cleanUpListeners())
-            .catch((err) => console.log("Audio play deferred: ", err));
-        }
-      };
-
-      const cleanUpListeners = () => {
-        window.removeEventListener("click", handleUserInteraction);
-        window.removeEventListener("touchstart", handleUserInteraction);
-        window.removeEventListener("keydown", handleUserInteraction);
-      };
-
-      // Add listeners across mouse, touch, and keyboards for guaranteed engagement catch
-      window.addEventListener("click", handleUserInteraction);
-      window.addEventListener("touchstart", handleUserInteraction);
-      window.addEventListener("keydown", handleUserInteraction);
-    });
-  }, []);
 
   return (
     <section className="relative w-full overflow-hidden bg-deep" style={{ minHeight: "min(100svh, 760px)" }}>
-      {/* Invisible HTML5 Audio Element */}
-      <audio
-        ref={audioRef}
-        src={heroAudio} // Ensure this file is inside your public/ folder
-        loop
-        playsInline
-      />
-
       {/* Background image/video with subtle Ken Burns */}
       <div className="absolute inset-0">
         <video
@@ -69,9 +26,6 @@ export function Hero() {
         {/* grid texture */}
         <div className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:60px_60px]" />
       </div>
-
-      {/* Navbar */}
-      <SiteHeader transparent />
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-start px-5 pb-24 pt-10 sm:px-10 sm:pt-16">

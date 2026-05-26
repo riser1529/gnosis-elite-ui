@@ -1,12 +1,23 @@
 import { Mail, MapPin } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Logo } from "./Logo";
 import { useApply } from "./ApplyContext";
+
+const navLinks = [
+  { to: "/", label: "Home" },
+  { to: "/programme", label: "Programme" },
+  { to: "/curriculum", label: "Curriculum" },
+  { to: "/coaches", label: "Coaches" },
+  { to: "/locations", label: "Locations" },
+  { to: "/testimonials", label: "Testimonials" },
+  { to: "/faq", label: "FAQ" },
+] as const;
 
 export function Footer() {
   const { open: onApply } = useApply();
   return (
     <footer className="relative border-t border-white/10 bg-deep">
-      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-10 lg:grid-cols-3">
+      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-10 lg:grid-cols-4">
         <div>
           <Logo />
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">
@@ -26,6 +37,24 @@ export function Footer() {
         <span className="leading-relaxed">Locations to be announced.</span>
       </div>
     </div>
+        </div>
+
+        <div>
+          <h4 className="text-[10px] font-bold tracking-[0.32em] text-cyan-precision mt-2">NAVIGATE</h4>
+          <ul className="mt-5 grid gap-2.5">
+            {navLinks.map((l) => (
+              <li key={l.to}>
+                <Link
+                  to={l.to}
+                  className="text-sm text-muted-foreground transition hover:text-white"
+                  activeProps={{ className: "!text-amber" }}
+                  activeOptions={{ exact: l.to === "/" }}
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="lg:justify-self-center">

@@ -1,10 +1,28 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ShieldCheck } from "lucide-react";
-import { SiteHeader } from "@/components/gnosis/SiteHeader";
 import { Footer } from "@/components/gnosis/Footer";
 import { Reveal } from "@/components/gnosis/Reveal";
 import { ContactCTA } from "@/components/gnosis/ContactCTA";
 import { Placeholder } from "@/components/gnosis/Placeholder";
+import { PageHero } from "@/components/gnosis/PageHero";
+
+const trainingShots = [
+  {
+    src: "https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&w=1400&q=80",
+    tag: "Scene 01",
+    title: "Pitch Drill · Live Session",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1400&q=80",
+    tag: "Scene 02",
+    title: "Tactics Whiteboard",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80",
+    tag: "Scene 03",
+    title: "Match-Day Huddle",
+  },
+];
 
 export const Route = createFileRoute("/coaches")({
   component: CoachesPage,
@@ -40,30 +58,11 @@ const coaches = [
 function CoachesPage() {
   return (
     <main className="bg-deep text-foreground overflow-x-hidden">
-      <SiteHeader />
-
-      <section className="relative overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 hero-overlay" />
-        <div className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:60px_60px]" />
-        <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-10 sm:py-28 text-center">
-          <Reveal>
-            <span className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.32em]"
-              style={{ border: "1px solid rgba(16,185,129,0.4)", background: "rgba(16,185,129,0.08)", color: "var(--amber)" }}>
-              Coaching Staff
-            </span>
-          </Reveal>
-          <Reveal delay={120}>
-            <h1 className="mt-6 text-4xl sm:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-[-0.01em] text-white">
-              Learn From The <span className="gradient-amber bg-clip-text text-transparent">Best</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={220}>
-            <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
-              Our coaching team brings together UEFA Pro and UEFA A licensed coaches with decades of professional playing and coaching experience at the highest levels of the game.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Coaching Staff"
+        title={<>Learn From The <span className="gradient-amber bg-clip-text text-transparent">Best</span></>}
+        description="Our coaching team brings together UEFA Pro and UEFA A licensed coaches with decades of professional playing and coaching experience at the highest levels of the game."
+      />
 
       {/* Coach profile sheets */}
       <section className="relative overflow-hidden">
@@ -101,26 +100,44 @@ function CoachesPage() {
         </div>
       </section>
 
-      {/* Media block */}
+      {/* On The Training Ground — real photography with hover zoom */}
       <section className="relative border-t border-white/10 bg-black/40 overflow-hidden">
-        <div className="mx-auto max-w-7xl px-5 sm:px-10 py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-10 py-14 sm:py-20">
           <Reveal>
             <div className="max-w-2xl">
               <span className="text-[10px] font-black tracking-[0.32em] text-cyan-precision uppercase">// On The Training Ground</span>
-              <h2 className="mt-3 text-3xl sm:text-4xl font-black uppercase tracking-tight text-white">On The Training Ground</h2>
-              <p className="mt-4 text-muted-foreground">The same elite-level coaching your son will receive.</p>
+              <h2 className="mt-3 text-2xl sm:text-4xl font-black uppercase tracking-tight text-white">On The Training Ground</h2>
+              <p className="mt-3 text-sm sm:text-base text-muted-foreground">The same elite-level coaching your son will receive.</p>
             </div>
           </Reveal>
-          <div className="mt-10 grid gap-4 sm:grid-cols-6">
-            <Reveal className="sm:col-span-4 min-w-0">
-              <Placeholder label="Pitch Drill · Live Session" tag="Scene 01" ratio="aspect-[16/10]" />
-            </Reveal>
-            <Reveal delay={120} className="sm:col-span-2 min-w-0">
-              <Placeholder label="Tactics Whiteboard" tag="Scene 02" ratio="aspect-[4/5]" />
-            </Reveal>
-            <Reveal delay={180} className="sm:col-span-6 min-w-0">
-              <Placeholder label="Match-Day Huddle" tag="Scene 03" ratio="aspect-[21/9]" />
-            </Reveal>
+
+          <div className="mt-8 grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-3">
+            {trainingShots.map((s, i) => (
+              <Reveal key={s.title} delay={i * 100} className="min-w-0">
+                <div
+                  className="group relative aspect-[4/3] max-h-[300px] w-full overflow-hidden rounded-2xl border border-white/10 bg-black transition"
+                  onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 0 26px rgba(16,185,129,0.30)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "none")}
+                >
+                  <img
+                    src={s.src}
+                    alt={s.title}
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1400ms] ease-out scale-105 group-hover:scale-110"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent transition-opacity group-hover:opacity-90" />
+                  <div className="pointer-events-none absolute inset-0 border-2 border-transparent transition group-hover:border-amber/50 rounded-2xl" />
+                  <div className="absolute left-3 right-3 bottom-3">
+                    <div className="text-[9px] font-black tracking-[0.28em] uppercase" style={{ color: "var(--amber)" }}>
+                      {s.tag}
+                    </div>
+                    <div className="mt-1 text-sm sm:text-base font-black text-white leading-tight break-words">
+                      {s.title}
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>

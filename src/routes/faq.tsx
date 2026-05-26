@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Plus, X } from "lucide-react";
-import { SiteHeader } from "@/components/gnosis/SiteHeader";
 import { Footer } from "@/components/gnosis/Footer";
 import { Reveal } from "@/components/gnosis/Reveal";
 import { ContactCTA } from "@/components/gnosis/ContactCTA";
+import { PageHero } from "@/components/gnosis/PageHero";
 
 export const Route = createFileRoute("/faq")({
   component: FAQPage,
@@ -54,30 +54,11 @@ function FAQPage() {
 
   return (
     <main className="bg-deep text-foreground overflow-x-hidden">
-      <SiteHeader />
-
-      <section className="relative overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 hero-overlay" />
-        <div className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:60px_60px]" />
-        <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-10 sm:py-28 text-center">
-          <Reveal>
-            <span className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.32em]"
-              style={{ border: "1px solid rgba(16,185,129,0.4)", background: "rgba(16,185,129,0.08)", color: "var(--amber)" }}>
-              FAQ
-            </span>
-          </Reveal>
-          <Reveal delay={120}>
-            <h1 className="mt-6 text-3xl sm:text-5xl lg:text-6xl font-black uppercase leading-[0.95] tracking-[-0.01em] text-white">
-              Frequently Asked <span className="gradient-amber bg-clip-text text-transparent">Questions</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={220}>
-            <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
-              Everything you need to know about the Gnosis Performance Transition Year Programme.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="FAQ"
+        title={<>Frequently Asked <span className="gradient-amber bg-clip-text text-transparent">Questions</span></>}
+        description="Everything you need to know about the Gnosis Performance Transition Year Programme."
+      />
 
       <section className="relative overflow-hidden">
         <div className="mx-auto max-w-4xl px-5 sm:px-10 py-16 sm:py-20 space-y-12">
@@ -99,26 +80,34 @@ function FAQPage() {
                     return (
                       <div
                         key={key}
-                        className="overflow-hidden rounded-xl border bg-white/[0.03] backdrop-blur-md transition"
+                        className="overflow-hidden rounded-xl border backdrop-blur-md transition"
                         style={{
                           borderColor: isOpen ? "rgba(16,185,129,0.5)" : "rgba(255,255,255,0.10)",
-                          boxShadow: isOpen ? "0 0 24px rgba(16,185,129,0.18)" : "none",
+                          boxShadow: isOpen ? "0 0 28px rgba(16,185,129,0.30)" : "none",
+                          background: isOpen
+                            ? "linear-gradient(160deg, rgba(16,185,129,0.97), rgba(52,211,153,0.88))"
+                            : "rgba(255,255,255,0.03)",
                         }}
                       >
                         <button
                           onClick={() => setOpenKey(isOpen ? null : key)}
                           className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
                         >
-                          <span className="min-w-0 text-sm sm:text-base font-bold text-white break-words pr-2">{it.q}</span>
+                          <span
+                            className="min-w-0 text-sm sm:text-base font-bold break-words pr-2"
+                            style={{ color: isOpen ? "#04120a" : "#fff" }}
+                          >
+                            {it.q}
+                          </span>
                           <span
                             className="grid h-8 w-8 shrink-0 place-items-center rounded-md border transition"
                             style={{
-                              borderColor: isOpen ? "rgba(16,185,129,0.6)" : "rgba(255,255,255,0.15)",
-                              background: isOpen ? "rgba(16,185,129,0.12)" : "transparent",
+                              borderColor: isOpen ? "rgba(4,18,10,0.35)" : "rgba(255,255,255,0.15)",
+                              background: isOpen ? "rgba(255,255,255,0.20)" : "transparent",
                             }}
                           >
                             {isOpen ? (
-                              <X className="h-4 w-4" style={{ color: "var(--amber)" }} />
+                              <X className="h-4 w-4" style={{ color: "#04120a" }} />
                             ) : (
                               <Plus className="h-4 w-4 text-white/70" />
                             )}
@@ -129,7 +118,13 @@ function FAQPage() {
                           style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
                         >
                           <div className="min-h-0 overflow-hidden">
-                            <p className="px-5 pb-5 text-sm leading-relaxed text-muted-foreground border-t border-white/5 pt-4">
+                            <p
+                              className="px-5 pb-5 text-sm leading-relaxed pt-4 border-t"
+                              style={{
+                                color: isOpen ? "rgba(4,18,10,0.88)" : "var(--muted-foreground)",
+                                borderColor: isOpen ? "rgba(4,18,10,0.18)" : "rgba(255,255,255,0.05)",
+                              }}
+                            >
                               {it.a}
                             </p>
                           </div>
