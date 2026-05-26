@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Quote, Star } from "lucide-react";
-import { SiteHeader } from "@/components/gnosis/SiteHeader";
 import { Footer } from "@/components/gnosis/Footer";
 import { Reveal } from "@/components/gnosis/Reveal";
 import { ContactCTA } from "@/components/gnosis/ContactCTA";
+import { PageHero } from "@/components/gnosis/PageHero";
 
 export const Route = createFileRoute("/testimonials")({
   component: TestimonialsPage,
@@ -63,36 +63,18 @@ function TestimonialsPage() {
 
   return (
     <main className="bg-deep text-foreground overflow-x-hidden">
-      <SiteHeader />
-
-      <section className="relative overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 hero-overlay" />
-        <div className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:60px_60px]" />
-        <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-10 sm:py-28 text-center">
-          <Reveal>
-            <span className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.32em]"
-              style={{ border: "1px solid rgba(16,185,129,0.4)", background: "rgba(16,185,129,0.08)", color: "var(--amber)" }}>
-              Testimonials
-            </span>
-          </Reveal>
-          <Reveal delay={120}>
-            <h1 className="mt-6 text-3xl sm:text-5xl lg:text-6xl font-black uppercase leading-[0.95] tracking-[-0.01em] text-white">
-              What Our Players & <span className="gradient-amber bg-clip-text text-transparent">Parents Say</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={220}>
-            <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
-              Hear directly from the players who've been through the programme and the parents who've seen the transformation first-hand.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Testimonials"
+        title={<>What Our Players & <span className="gradient-amber bg-clip-text text-transparent">Parents Say</span></>}
+        description="Hear directly from the players who've been through the programme and the parents who've seen the transformation first-hand."
+      />
 
       {/* TABS + CARDS */}
       <section className="relative overflow-hidden">
         <div className="mx-auto max-w-7xl px-5 sm:px-10 py-16 sm:py-20">
           <Reveal>
-            <div className="relative mx-auto inline-flex w-full max-w-md items-center rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-md p-1">
+            <div className="flex justify-center">
+              <div className="relative inline-flex w-full max-w-md items-center rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-md p-1">
               {(["players", "parents"] as const).map((t) => {
                 const active = tab === t;
                 return (
@@ -106,6 +88,7 @@ function TestimonialsPage() {
                   </button>
                 );
               })}
+              </div>
             </div>
           </Reveal>
 
@@ -137,16 +120,43 @@ function TestimonialsPage() {
       <section className="relative border-t border-white/10 bg-black/40 overflow-hidden">
         <div className="mx-auto max-w-7xl px-5 sm:px-10 py-14 sm:py-16">
           <Reveal>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-md">
-              {metrics.map((m, i) => (
-                <div key={m.v + i} className="min-w-0 bg-deep p-5 sm:p-6">
-                  <div className="text-[10px] font-bold tracking-[0.28em] text-cyan-precision">{String(i + 1).padStart(2, "0")}</div>
-                  <div className="mt-2 text-4xl sm:text-5xl font-black tracking-tight break-words" style={{ color: "var(--amber)", textShadow: "0 0 24px rgba(16,185,129,0.35)" }}>
-                    {m.v}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-2xl overflow-hidden border border-white/10">
+              {metrics.map((m, i) => {
+                const green = i % 2 === 0;
+                return (
+                  <div
+                    key={m.v + i}
+                    className="min-w-0 p-5 sm:p-6"
+                    style={{
+                      background: green
+                        ? "linear-gradient(160deg, rgba(16,185,129,0.95), rgba(52,211,153,0.82))"
+                        : "#000000",
+                    }}
+                  >
+                    <div
+                      className="text-[10px] font-bold tracking-[0.28em]"
+                      style={{ color: green ? "rgba(4,18,10,0.7)" : "var(--cyan-precision)" }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <div
+                      className="mt-2 text-4xl sm:text-5xl font-black tracking-tight break-words"
+                      style={{
+                        color: green ? "#04120a" : "var(--amber)",
+                        textShadow: green ? "none" : "0 0 24px rgba(16,185,129,0.35)",
+                      }}
+                    >
+                      {m.v}
+                    </div>
+                    <div
+                      className="mt-2 text-[10px] sm:text-[11px] font-bold leading-snug uppercase tracking-wide break-words"
+                      style={{ color: green ? "rgba(4,18,10,0.85)" : "rgba(255,255,255,0.75)" }}
+                    >
+                      {m.label}
+                    </div>
                   </div>
-                  <div className="mt-2 text-[10px] sm:text-[11px] font-bold leading-snug text-white/75 uppercase tracking-wide break-words">{m.label}</div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </Reveal>
         </div>
