@@ -4,6 +4,7 @@ import { Hero } from "@/components/gnosis/Hero";
 import { Footer } from "@/components/gnosis/Footer";
 import { HomeSections } from "@/components/gnosis/HomeSections";
 import { ContactCTA } from "@/components/gnosis/ContactCTA";
+import { ProgrammeOverview } from "@/components/gnosis/ProgrammeOverview";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -22,6 +23,7 @@ function Index() {
     <>
       <main className="bg-deep text-foreground">
         <Hero />
+        <ProgrammeOverview />
         <HomeSections />
         <ContactCTA />
         <Footer />
