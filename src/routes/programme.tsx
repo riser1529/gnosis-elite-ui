@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ChevronRight, Calendar, CalendarDays, Flag, Sparkles, Check } from "lucide-react";
-import { SiteHeader } from "@/components/gnosis/SiteHeader";
 import { Footer } from "@/components/gnosis/Footer";
 import { Reveal } from "@/components/gnosis/Reveal";
 import { ContactCTA } from "@/components/gnosis/ContactCTA";
 import { Placeholder } from "@/components/gnosis/Placeholder";
 import { useApply } from "@/components/gnosis/ApplyContext";
+import { PageHero } from "@/components/gnosis/PageHero";
 
 export const Route = createFileRoute("/programme")({
   component: ProgrammePage,
@@ -49,38 +49,18 @@ function ProgrammePage() {
   const { open } = useApply();
   return (
     <main className="bg-deep text-foreground overflow-x-hidden">
-      <SiteHeader />
-
-      {/* ===== SECTION A: HEADER ===== */}
-      <section className="relative overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 hero-overlay" />
-        <div className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:60px_60px]" />
-        <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-10 sm:py-28 text-center">
-          <Reveal>
-            <span className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.32em]"
-              style={{ border: "1px solid rgba(16,185,129,0.4)", background: "rgba(16,185,129,0.08)", color: "var(--amber)" }}>
-              September 2026 Intake
-            </span>
-          </Reveal>
-          <Reveal delay={120}>
-            <h1 className="mt-6 text-balance text-4xl sm:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-[-0.01em] text-white break-words">
-              The <span className="gradient-amber bg-clip-text text-transparent">Programme</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={220}>
-            <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
-              A full-time Transition Year football and performance pathway. Train, recover and study like a professional, nine months a year, five days a week.
-            </p>
-          </Reveal>
-          <Reveal delay={320}>
-            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <button onClick={open} className="group inline-flex items-center gap-2 rounded-md gradient-amber px-7 py-4 text-sm font-black tracking-[0.2em] text-primary-foreground shadow-amber transition hover:scale-[1.03]">
-                APPLY NOW <ChevronRight className="h-4 w-4 transition group-hover:translate-x-1" />
-              </button>
-            </div>
-          </Reveal>
+      <PageHero
+        eyebrow="September 2026 Intake"
+        title={<>The <span className="gradient-amber bg-clip-text text-transparent">Programme</span></>}
+        description="A full-time Transition Year football and performance pathway. Train, recover and study like a professional, nine months a year, five days a week."
+      />
+      <div className="bg-deep">
+        <div className="mx-auto max-w-7xl px-5 sm:px-10 -mt-8 sm:-mt-10 flex justify-center pb-12">
+          <button onClick={open} className="group inline-flex items-center gap-2 rounded-md gradient-amber px-7 py-4 text-sm font-black tracking-[0.2em] text-primary-foreground shadow-amber transition hover:scale-[1.03]">
+            APPLY NOW <ChevronRight className="h-4 w-4 transition group-hover:translate-x-1" />
+          </button>
         </div>
-      </section>
+      </div>
 
       {/* ===== SECTION B: OUR MISSION (split) ===== */}
       <section className="relative border-b border-white/10 overflow-hidden">
@@ -133,16 +113,38 @@ function ProgrammePage() {
             </div>
 
             {/* Right: 4 HUD metric blocks */}
-            <div className="grid grid-cols-2 gap-3 min-w-0">
-              {metricBlocks.map((b, i) => (
+            <div className="grid grid-cols-2 gap-3 min-w-0 self-start">
+              {metricBlocks.map((b, i) => {
+                const green = i % 2 === 0;
+                return (
                 <Reveal key={b.v} delay={i * 90}>
-                  <div className="group relative h-full rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-5 transition hover:border-amber/40">
-                    <b.icon className="h-5 w-5" style={{ color: "var(--amber)" }} />
-                    <div className="mt-4 text-xl sm:text-2xl font-black text-white tracking-tight break-words" style={{ textShadow: "0 0 18px rgba(16,185,129,0.25)" }}>{b.k}</div>
-                    <div className="mt-2 text-[10px] font-bold tracking-[0.28em] text-cyan-precision uppercase break-words">{b.v}</div>
+                  <div
+                    className="group relative h-full rounded-xl border p-4 sm:p-5 transition hover:scale-[1.02]"
+                    style={{
+                      borderColor: green ? "rgba(16,185,129,0.5)" : "rgba(255,255,255,0.10)",
+                      background: green
+                        ? "linear-gradient(160deg, rgba(16,185,129,0.95), rgba(52,211,153,0.82))"
+                        : "rgba(0,0,0,0.55)",
+                      boxShadow: green ? "0 0 24px rgba(16,185,129,0.22)" : "none",
+                    }}
+                  >
+                    <b.icon className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: green ? "#04120a" : "var(--amber)" }} />
+                    <div
+                      className="mt-3 text-base sm:text-xl font-black tracking-tight break-words"
+                      style={{ color: green ? "#04120a" : "#fff", textShadow: green ? "none" : "0 0 18px rgba(16,185,129,0.25)" }}
+                    >
+                      {b.k}
+                    </div>
+                    <div
+                      className="mt-1.5 text-[9px] sm:text-[10px] font-bold tracking-[0.24em] uppercase break-words"
+                      style={{ color: green ? "rgba(4,18,10,0.75)" : "var(--cyan-precision)" }}
+                    >
+                      {b.v}
+                    </div>
                   </div>
                 </Reveal>
-              ))}
+                );
+              })}
             </div>
           </div>
 
