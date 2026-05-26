@@ -20,8 +20,10 @@ export function SiteHeader({ transparent = false }: { transparent?: boolean }) {
 
   return (
     <header
-      className={`relative z-30 w-full ${
-        transparent ? "" : "border-b border-white/10 bg-deep/80 backdrop-blur-md"
+      className={`sticky top-0 z-40 w-full ${
+        transparent
+          ? "bg-deep/30 backdrop-blur-md border-b border-white/5"
+          : "border-b border-white/10 bg-deep/85 backdrop-blur-md"
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-10 sm:py-6">
