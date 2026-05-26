@@ -3,8 +3,11 @@ import {
   Link,
   createRootRoute,
   useRouter,
+  useRouterState,
 } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { ApplyProvider } from "@/components/gnosis/ApplyContext";
+import { GlobalAudio } from "@/components/gnosis/GlobalAudio";
 
 function NotFoundComponent() {
   return (
@@ -70,8 +73,15 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
+  const routerState = useRouterState();
+  // Scroll to top on every navigation so users land on hero of next page.
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+  }, [routerState.location.pathname]);
+
   return (
     <ApplyProvider>
+      <GlobalAudio />
       <Outlet />
     </ApplyProvider>
   );
