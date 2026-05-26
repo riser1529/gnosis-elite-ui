@@ -1,69 +1,120 @@
 import { Link } from "@tanstack/react-router";
-import { Activity, Brain, Dumbbell, Check, ChevronRight, Quote, Star } from "lucide-react";
+import {
+  Activity,
+  Brain,
+  Dumbbell,
+  GraduationCap,
+  Check,
+  ChevronRight,
+  Quote,
+  Star,
+  ShieldCheck,
+  Award,
+  Trophy,
+  Sparkles,
+  Compass,
+} from "lucide-react";
 import kitImg from "@/assets/kit.jpg";
 import treadmillVideo from "@/assets/treadmill.mp4";
 import { Reveal } from "./Reveal";
-import { Placeholder } from "./Placeholder";
 
-const pillars = [
+/** ---- 4 tracks (synced with /curriculum) ---- */
+const tracks = [
   {
-    step: "01",
-    tag: "Player Development",
-    title: "Player Development",
+    num: "01",
     icon: Activity,
+    tag: "Technical Track",
+    title: "Technical & Tactical Excellence",
     body:
-      "The core of our programme. Every session is designed with purpose to develop technically superior, tactically intelligent footballers who can compete at the highest level.",
-    items: [
-      "UEFA Pro Licence Coaches",
-      "Individual learning plans",
-      "Tactical sessions - age appropriate curriculum",
-      "Games v Premier League academy opposition",
-      "Premier League specialist coaching",
-      "Sports psychology support",
-    ],
+      "Position-specific units, daily ball mastery, video review and tactical patterns built for elite decision making.",
+    items: ["Position-specific units", "Video analysis", "Set piece architecture"],
   },
   {
-    step: "02",
-    tag: "Education & Personal Growth",
-    title: "Education & Personal Growth",
-    icon: Brain,
-    body:
-      "We believe every player deserves the best possible future — in football and beyond. Our education and personal development strand ensures players leave our programme as rounded, confident young people.",
-    items: [
-      "ITEC Gym Instructor QQI Level 2",
-      "Anatomy, Physiology, Diet & Nutrition",
-      "Business Studies & Special Populations",
-      "First Aid & Circuit Training",
-      "Gym Instruction & Client Screening",
-      "Premier League Guest Speakers",
-    ],
-  },
-  {
-    step: "03",
-    tag: "Athletic Development",
-    title: "Athletic Development",
+    num: "02",
     icon: Dumbbell,
+    tag: "Physical Track",
+    title: "Physical & Athletic Development",
     body:
-      "Elite footballers are elite athletes first. Our athletic development programme is designed to build the physical platform players need to compete at professional level.",
-    items: [
-      "Strength & conditioning programme",
-      "Speed, agility & explosiveness training",
-      "Injury prevention & recovery protocols",
-      "Nutrition education & hydration guidance",
-      "Sports science monitoring",
-      "Continuous testing and monitoring",
-    ],
+      "Periodised strength, speed mechanics and GPS-tracked load management around the demands of the elite game.",
+    items: ["S&C programming", "Speed mechanics", "GPS load monitoring"],
+  },
+  {
+    num: "03",
+    icon: Brain,
+    tag: "Psychological Track",
+    title: "Psychological & Personal Growth",
+    body:
+      "Sports psychology, leadership, resilience and media training — building the professional human behind the player.",
+    items: ["1:1 psychology", "Leadership modules", "Media training"],
+  },
+  {
+    num: "04",
+    icon: GraduationCap,
+    tag: "Academic Track",
+    title: "Academic Compliance & Progression",
+    body:
+      "Independent study aligned with each player's TY curriculum plus FAI / UEFA foundation coaching pathways.",
+    items: ["TY-aligned study", "FAI Kickstart", "UEFA C pathway"],
   },
 ];
 
+/** ---- Stats (Proven Pipeline) ---- */
 const stats = [
-  { v: "136", label: "Underage International Players (Boys & Girls Programme)" },
-  { v: "67", label: "Players Receiving International Debuts (Boys & Girls Programme)" },
-  { v: "4", label: "Senior International Players (Boys & Girls Programme)" },
-  { v: "78", label: "Players Progressed to First Team LOI Football" },
-  { v: "21", label: "Players Secured Professional Contracts Overseas" },
-  { v: "25", label: "Players Earned USA College Scholarships" },
+  { v: "136", label: "Underage International Players" },
+  { v: "67", label: "International Debuts" },
+  { v: "4", label: "Senior Internationals" },
+  { v: "78", label: "LOI First Team Progressions" },
+  { v: "21", label: "Professional Contracts Overseas" },
+  { v: "25", label: "USA College Scholarships" },
 ];
+
+/** ---- What Sets Us Apart (5 differentiators) ---- */
+const differentiators = [
+  {
+    icon: Trophy,
+    tag: "01",
+    title: "Proven Foundation",
+    body:
+      "Our Head of Football has 20+ years producing elite players for domestic and international football.",
+  },
+  {
+    icon: ShieldCheck,
+    tag: "02",
+    title: "Elite Coaching",
+    body: "All sessions are led by UEFA Pro and A License coaches.",
+  },
+  {
+    icon: Compass,
+    tag: "03",
+    title: "Pro Environment",
+    body:
+      "Train at TU Blanchardstown & Corduff Sports Centre in professional facilities.",
+  },
+  {
+    icon: Award,
+    tag: "04",
+    title: "Top-Level Exposure",
+    body:
+      "Premier League & international club visits, trials and scouting opportunities.",
+  },
+  {
+    icon: Sparkles,
+    tag: "05",
+    title: "Complete Development",
+    body:
+      "Balancing football excellence with academic achievement and personal growth.",
+  },
+];
+
+/** ---- Lab images (use real photography URLs) ---- */
+const labStadium =
+  "https://images.unsplash.com/photo-1577223625816-7546f13df25d?auto=format&fit=crop&w=1400&q=80";
+const labGym =
+  "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=1400&q=80";
+const labPitch =
+  "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?auto=format&fit=crop&w=1400&q=80";
+const labTactics =
+  "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1400&q=80";
 
 function hoverGlow(e: React.MouseEvent<HTMLElement>, on: boolean) {
   e.currentTarget.style.boxShadow = on ? "0 0 24px rgba(16,185,129,0.28)" : "none";
@@ -72,7 +123,7 @@ function hoverGlow(e: React.MouseEvent<HTMLElement>, on: boolean) {
 export function HomeSections() {
   return (
     <>
-      {/* ============ SECTION A: TRI-PILLAR ============ */}
+      {/* ============ A — 4 TRACK SYSTEM (synced to /curriculum) ============ */}
       <section className="relative border-t border-white/10 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none opacity-[0.05] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:60px_60px]" />
         <div className="relative mx-auto max-w-7xl px-5 sm:px-10 py-20 sm:py-28">
@@ -81,40 +132,51 @@ export function HomeSections() {
               <span className="text-[10px] font-black tracking-[0.32em] text-cyan-precision uppercase">The Operating System</span>
               <h2 className="mt-3 text-3xl sm:text-5xl font-black uppercase tracking-tight text-white">A Complete Development System</h2>
               <p className="mt-4 text-muted-foreground leading-relaxed">
-                Three integrated pillars. One pathway. Engineered to produce technically elite, physically robust, intellectually rounded footballers.
+                Four integrated tracks. One pathway. Engineered to produce technically elite, physically robust, intellectually rounded footballers.
               </p>
             </div>
           </Reveal>
 
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
-            {pillars.map((p, i) => (
-              <Reveal key={p.step} delay={i * 120}>
+          <div className="mt-12 grid gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {tracks.map((t, i) => (
+              <Reveal key={t.num} delay={i * 100}>
                 <article
-                  className="group relative h-full min-w-0 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6 sm:p-7 transition hover:border-amber/40"
+                  className="group relative flex h-full min-w-0 flex-col rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-5 sm:p-6 transition hover:border-amber/40"
                   onMouseEnter={(e) => hoverGlow(e, true)}
                   onMouseLeave={(e) => hoverGlow(e, false)}
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="grid h-11 w-11 shrink-0 place-items-center rounded-lg gradient-amber shadow-amber text-primary-foreground font-black text-sm">
-                      {p.step}
+                  <div className="flex items-center gap-3">
+                    <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg gradient-amber shadow-amber text-primary-foreground font-black text-sm">
+                      {t.num}
                     </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2">
-                        <p.icon className="h-4 w-4 shrink-0" style={{ color: "var(--amber)" }} />
-                        <span className="text-[10px] font-black tracking-[0.28em] text-cyan-precision uppercase truncate">{p.tag}</span>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <t.icon className="h-3.5 w-3.5 shrink-0" style={{ color: "var(--amber)" }} />
+                        <span className="text-[9px] font-black tracking-[0.28em] text-cyan-precision uppercase truncate">{t.tag}</span>
                       </div>
-                      <h3 className="mt-3 text-lg sm:text-xl font-black text-white leading-tight break-words">{p.title}</h3>
-                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.body}</p>
                     </div>
                   </div>
-                  <ul className="mt-6 grid gap-2.5 border-t border-white/10 pt-5">
-                    {p.items.map((m) => (
-                      <li key={m} className="flex items-start gap-2.5 text-[13px] text-white/85">
-                        <Check className="mt-0.5 h-3.5 w-3.5 shrink-0" style={{ color: "var(--amber)" }} />
+
+                  <h3 className="mt-4 text-base sm:text-lg font-black text-white leading-tight break-words">{t.title}</h3>
+                  <p className="mt-3 text-[13px] leading-relaxed text-muted-foreground">{t.body}</p>
+
+                  <ul className="mt-4 grid gap-2 border-t border-white/10 pt-4">
+                    {t.items.map((m) => (
+                      <li key={m} className="flex items-start gap-2 text-[12px] text-white/85">
+                        <Check className="mt-0.5 h-3 w-3 shrink-0" style={{ color: "var(--amber)" }} />
                         <span className="min-w-0 break-words">{m}</span>
                       </li>
                     ))}
                   </ul>
+
+                  <Link
+                    to="/curriculum"
+                    className="mt-5 inline-flex items-center justify-center gap-1.5 rounded-md border border-amber/40 bg-amber/10 px-4 py-2.5 text-[10px] font-black tracking-[0.22em] uppercase transition hover:bg-amber/20"
+                    style={{ color: "var(--amber)" }}
+                  >
+                    LEARN MORE
+                    <ChevronRight className="h-3 w-3" />
+                  </Link>
                 </article>
               </Reveal>
             ))}
@@ -122,7 +184,7 @@ export function HomeSections() {
         </div>
       </section>
 
-      {/* ============ SECTION B: STATS DASHBOARD ============ */}
+      {/* ============ B — PROVEN PIPELINE (alternating green/black matrix) ============ */}
       <section className="relative border-t border-white/10 bg-black/40 overflow-hidden">
         <div className="mx-auto max-w-7xl px-5 sm:px-10 py-20 sm:py-24">
           <Reveal>
@@ -139,24 +201,43 @@ export function HomeSections() {
           </Reveal>
 
           <Reveal delay={120}>
-            <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-md">
-              {stats.map((s, i) => (
-                <div
-                  key={s.v + i}
-                  className="group relative min-w-0 bg-deep p-5 sm:p-6 transition hover:bg-white/[0.04]"
-                  onMouseEnter={(e) => hoverGlow(e, true)}
-                  onMouseLeave={(e) => hoverGlow(e, false)}
-                >
-                  <div className="text-[10px] font-bold tracking-[0.28em] text-cyan-precision">{String(i + 1).padStart(2, "0")}</div>
+            <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px rounded-2xl overflow-hidden border border-white/10">
+              {stats.map((s, i) => {
+                const green = i % 2 === 0;
+                return (
                   <div
-                    className="mt-3 text-4xl sm:text-5xl font-black tracking-tight break-words"
-                    style={{ color: "var(--amber)", textShadow: "0 0 28px rgba(16,185,129,0.35)" }}
+                    key={s.v + i}
+                    className="group relative min-w-0 p-5 sm:p-6 transition"
+                    style={{
+                      background: green
+                        ? "linear-gradient(160deg, rgba(16,185,129,0.92), rgba(52,211,153,0.78))"
+                        : "#000000",
+                    }}
                   >
-                    {s.v}
+                    <div
+                      className="text-[10px] font-bold tracking-[0.28em]"
+                      style={{ color: green ? "rgba(4,18,10,0.7)" : "var(--cyan-precision)" }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <div
+                      className="mt-3 text-4xl sm:text-5xl font-black tracking-tight break-words"
+                      style={{
+                        color: green ? "#04120a" : "var(--amber)",
+                        textShadow: green ? "none" : "0 0 28px rgba(16,185,129,0.35)",
+                      }}
+                    >
+                      {s.v}
+                    </div>
+                    <div
+                      className="mt-3 text-[10px] sm:text-[11px] font-bold leading-snug uppercase tracking-wide break-words"
+                      style={{ color: green ? "rgba(4,18,10,0.85)" : "rgba(255,255,255,0.75)" }}
+                    >
+                      {s.label}
+                    </div>
                   </div>
-                  <div className="mt-3 text-[10px] sm:text-[11px] font-bold leading-snug text-white/75 uppercase tracking-wide break-words">{s.label}</div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </Reveal>
 
@@ -168,13 +249,79 @@ export function HomeSections() {
         </div>
       </section>
 
-      {/* ============ SECTION C: TESTIMONIAL HUD PREVIEW ============ */}
+      {/* ============ C — WHAT SETS US APART (5 differentiators) ============ */}
       <section className="relative border-t border-white/10 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none opacity-[0.04] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:60px_60px]" />
+        <div className="relative mx-auto max-w-7xl px-5 sm:px-10 py-20 sm:py-28">
+          <Reveal>
+            <div className="text-center">
+              <span className="text-[10px] font-black tracking-[0.32em] text-cyan-precision uppercase">Our Difference</span>
+              <h2 className="mt-3 text-3xl sm:text-5xl font-black uppercase tracking-tight text-white">What Sets Us Apart</h2>
+              <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">Five non-negotiables that define every day inside the academy.</p>
+            </div>
+          </Reveal>
+
+          <div className="mt-12 grid gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {differentiators.map((d, i) => {
+              const green = i % 2 === 0;
+              return (
+                <Reveal key={d.title} delay={i * 90}>
+                  <article
+                    className="group relative h-full min-w-0 rounded-2xl border p-6 sm:p-7 transition hover:scale-[1.02]"
+                    style={{
+                      borderColor: green ? "rgba(16,185,129,0.5)" : "rgba(255,255,255,0.10)",
+                      background: green
+                        ? "linear-gradient(160deg, rgba(16,185,129,0.95), rgba(52,211,153,0.82))"
+                        : "rgba(0,0,0,0.55)",
+                      backdropFilter: green ? undefined : "blur(12px)",
+                      boxShadow: green ? "0 0 28px rgba(16,185,129,0.22)" : "none",
+                    }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div
+                        className="grid h-11 w-11 place-items-center rounded-lg border"
+                        style={{
+                          borderColor: green ? "rgba(4,18,10,0.25)" : "rgba(16,185,129,0.4)",
+                          background: green ? "rgba(255,255,255,0.18)" : "rgba(16,185,129,0.10)",
+                        }}
+                      >
+                        <d.icon className="h-5 w-5" style={{ color: green ? "#04120a" : "var(--amber)" }} />
+                      </div>
+                      <span
+                        className="text-[10px] font-black tracking-[0.28em]"
+                        style={{ color: green ? "rgba(4,18,10,0.7)" : "var(--cyan-precision)" }}
+                      >
+                        // {d.tag}
+                      </span>
+                    </div>
+                    <h3
+                      className="mt-5 text-lg sm:text-xl font-black uppercase tracking-tight break-words"
+                      style={{ color: green ? "#04120a" : "#fff" }}
+                    >
+                      {d.title}
+                    </h3>
+                    <p
+                      className="mt-3 text-sm leading-relaxed break-words"
+                      style={{ color: green ? "rgba(4,18,10,0.85)" : "var(--muted-foreground)" }}
+                    >
+                      {d.body}
+                    </p>
+                  </article>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ D — TESTIMONIALS PREVIEW (dedicated section) ============ */}
+      <section className="relative border-t border-white/10 bg-black/40 overflow-hidden">
         <div className="mx-auto max-w-7xl px-5 sm:px-10 py-20 sm:py-28">
           <Reveal>
             <div className="text-center">
-              <span className="text-[10px] font-black tracking-[0.32em] text-cyan-precision uppercase">From The Pathway</span>
-              <h2 className="mt-3 text-3xl sm:text-5xl font-black uppercase tracking-tight text-white">What Sets Us Apart</h2>
+              <span className="text-[10px] font-black tracking-[0.32em] text-cyan-precision uppercase">Testimonials</span>
+              <h2 className="mt-3 text-3xl sm:text-5xl font-black uppercase tracking-tight text-white">From The Pathway</h2>
+              <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">Players and parents who lived the programme.</p>
             </div>
           </Reveal>
 
@@ -192,10 +339,10 @@ export function HomeSections() {
                   ))}
                 </div>
               </div>
-              <p className="mt-6 text-lg sm:text-xl leading-relaxed text-white">
+              <p className="mt-6 text-base sm:text-xl leading-relaxed text-white">
                 "When I began working with Denis, my goal was to become a professional footballer... Completing the TY programme was one of the best decisions I made."
               </p>
-              <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-5">
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-t border-white/10 pt-5">
                 <div className="min-w-0">
                   <div className="text-sm font-black text-white truncate">Killian Phillips</div>
                   <div className="text-[10px] font-bold tracking-[0.28em] text-cyan-precision uppercase truncate">St Mirren FC · Rep of Ireland Senior International</div>
@@ -213,8 +360,8 @@ export function HomeSections() {
         </div>
       </section>
 
-      {/* ============ SECTION D: HERO MEDIA & BRANDING ============ */}
-      <section className="relative border-t border-white/10 bg-black/40 overflow-hidden">
+      {/* ============ E — INSIDE THE LAB (real images, tight responsive grid) ============ */}
+      <section className="relative border-t border-white/10 overflow-hidden">
         <div className="mx-auto max-w-7xl px-5 sm:px-10 py-20 sm:py-28">
           <Reveal>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
@@ -222,86 +369,124 @@ export function HomeSections() {
                 <span className="text-[10px] font-black tracking-[0.32em] text-cyan-precision uppercase">Inside The Lab</span>
                 <h2 className="mt-3 text-3xl sm:text-5xl font-black uppercase tracking-tight text-white">Where The Work Happens.</h2>
               </div>
-              <p className="max-w-md text-sm text-muted-foreground">From the biomechanical treadmill in the performance lab to the full kit pack on day one — every detail engineered for elite preparation.</p>
+              <p className="max-w-md text-sm text-muted-foreground">
+                From biomechanical analysis to tactical whiteboards and match-day pitches — every environment engineered for elite preparation.
+              </p>
             </div>
           </Reveal>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-6">
-            {/* Treadmill — large */}
-            <Reveal className="sm:col-span-4 min-w-0">
-              <div
-                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-black transition aspect-[16/10] max-h-[450px]"
-                onMouseEnter={(e) => hoverGlow(e, true)}
-                onMouseLeave={(e) => hoverGlow(e, false)}
-              >
-                <video
-                  src={treadmillVideo}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1400ms] ease-out scale-105 group-hover:scale-110"
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-                <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-amber/40 bg-black/50 px-3 py-1.5 text-[10px] font-black tracking-[0.28em] text-white backdrop-blur-md">
-                  <span className="h-1.5 w-1.5 rounded-full animate-pulse-ring" style={{ background: "var(--amber)" }} />
-                  BIOMECHANICAL LAB · LIVE
-                </div>
-                <div className="absolute left-4 right-4 bottom-4">
-                  <div className="text-[10px] font-black tracking-[0.28em] uppercase" style={{ color: "var(--amber)" }}>Module 04 · Performance Diagnostics</div>
-                  <div className="mt-1 text-lg sm:text-2xl font-black text-white">Biomechanical Treadmill Analysis</div>
-                </div>
-              </div>
-            </Reveal>
+          <div className="mt-10 grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-6 auto-rows-[160px] sm:auto-rows-[200px] lg:auto-rows-[220px]">
+            {/* Treadmill — large hero tile */}
+            <LabTile
+              span="col-span-2 lg:col-span-4 lg:row-span-2"
+              tag="Module 04 · Performance Diagnostics"
+              title="Biomechanical Treadmill Analysis"
+              videoSrc={treadmillVideo}
+              live
+            />
 
             {/* Kit */}
-            <Reveal delay={120} className="sm:col-span-2 min-w-0">
-              <div
-                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-black aspect-[4/5] max-h-[450px] transition"
-                onMouseEnter={(e) => hoverGlow(e, true)}
-                onMouseLeave={(e) => hoverGlow(e, false)}
-              >
-                <img
-                  src={kitImg}
-                  alt="Gnosis Performance Football Academy custom green/black match jersey kit"
-                  loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1400ms] ease-out scale-105 group-hover:scale-110"
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className="absolute left-4 right-4 bottom-4">
-                  <div className="text-[10px] font-black tracking-[0.28em] uppercase" style={{ color: "var(--amber)" }}>Issue Kit</div>
-                  <div className="mt-0.5 text-base font-black text-white">Green / Black Match Jersey</div>
-                </div>
-              </div>
-            </Reveal>
+            <LabTile
+              span="col-span-1 lg:col-span-2 lg:row-span-1"
+              tag="Issue Kit"
+              title="Green / Black Match Jersey"
+              imageSrc={kitImg}
+            />
 
-            {/* Digital brain placeholder */}
-            <Reveal delay={200} className="sm:col-span-3 min-w-0">
-              <Placeholder
-                label="Digital Brain Graphic Loop"
-                tag="Cognition · Neuroflow"
-                ratio="aspect-[16/9]"
-              />
-            </Reveal>
+            {/* Stadium */}
+            <LabTile
+              span="col-span-1 lg:col-span-2 lg:row-span-1"
+              tag="Match Day"
+              title="Stadium Environment"
+              imageSrc={labStadium}
+            />
 
-            {/* Stat card */}
-            <Reveal delay={280} className="sm:col-span-3 min-w-0">
-              <div
-                className="group relative flex h-full min-h-[200px] flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6 transition hover:border-amber/40"
-                onMouseEnter={(e) => hoverGlow(e, true)}
-                onMouseLeave={(e) => hoverGlow(e, false)}
-              >
-                <div className="min-w-0">
-                  <span className="text-[10px] font-black tracking-[0.28em] text-cyan-precision uppercase">// Squad Ratio</span>
-                  <div className="mt-2 text-5xl sm:text-6xl font-black text-white break-words" style={{ textShadow: "0 0 28px rgba(16,185,129,0.25)" }}>1:6</div>
-                  <div className="mt-2 text-[11px] font-bold uppercase tracking-wide text-muted-foreground">Coach to player ratio for maximum individual attention.</div>
-                </div>
-              </div>
-            </Reveal>
+            {/* Gym */}
+            <LabTile
+              span="col-span-1 lg:col-span-2"
+              tag="S&C Floor"
+              title="Strength & Conditioning"
+              imageSrc={labGym}
+            />
+            {/* Pitch */}
+            <LabTile
+              span="col-span-1 lg:col-span-2"
+              tag="Pitch Ops"
+              title="Outdoor 4G Training Pitch"
+              imageSrc={labPitch}
+            />
+            {/* Tactics */}
+            <LabTile
+              span="col-span-2 lg:col-span-2"
+              tag="Tactical Block"
+              title="Whiteboard & Video Review"
+              imageSrc={labTactics}
+            />
           </div>
         </div>
       </section>
     </>
+  );
+}
+
+/** ---- Reusable lab grid tile (image OR video) ---- */
+function LabTile({
+  span,
+  tag,
+  title,
+  imageSrc,
+  videoSrc,
+  live,
+}: {
+  span: string;
+  tag: string;
+  title: string;
+  imageSrc?: string;
+  videoSrc?: string;
+  live?: boolean;
+}) {
+  return (
+    <Reveal className={`${span} min-w-0`}>
+      <div
+        className="group relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-black transition"
+        onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 0 28px rgba(16,185,129,0.32)")}
+        onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "none")}
+      >
+        {videoSrc ? (
+          <video
+            src={videoSrc}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1400ms] ease-out scale-105 group-hover:scale-110"
+          />
+        ) : (
+          <img
+            src={imageSrc}
+            alt={title}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1400ms] ease-out scale-105 group-hover:scale-110"
+          />
+        )}
+
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+
+        {live && (
+          <div className="absolute left-3 top-3 inline-flex items-center gap-2 rounded-full border border-amber/40 bg-black/50 px-2.5 py-1 text-[9px] font-black tracking-[0.28em] text-white backdrop-blur-md">
+            <span className="h-1.5 w-1.5 rounded-full animate-pulse-ring" style={{ background: "var(--amber)" }} />
+            LIVE
+          </div>
+        )}
+
+        <div className="absolute left-3 right-3 bottom-3">
+          <div className="text-[9px] sm:text-[10px] font-black tracking-[0.26em] uppercase" style={{ color: "var(--amber)" }}>
+            {tag}
+          </div>
+          <div className="mt-1 text-sm sm:text-base lg:text-lg font-black text-white leading-tight break-words">{title}</div>
+        </div>
+      </div>
+    </Reveal>
   );
 }
