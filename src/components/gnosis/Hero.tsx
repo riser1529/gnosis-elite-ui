@@ -1,7 +1,6 @@
 import { ChevronRight, MapPin, Calendar, ShieldCheck } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import heroVideo from "@/assets/hero-video.mp4";
-import { SiteHeader } from "./SiteHeader";
 import { useApply } from "./ApplyContext";
 
 export function Hero() {
@@ -27,9 +26,6 @@ export function Hero() {
         {/* grid texture */}
         <div className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:60px_60px]" />
       </div>
-
-      {/* Navbar */}
-      <SiteHeader transparent />
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-start px-5 pb-24 pt-10 sm:px-10 sm:pt-16">

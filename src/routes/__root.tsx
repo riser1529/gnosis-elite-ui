@@ -8,6 +8,7 @@ import {
 import { useEffect } from "react";
 import { ApplyProvider } from "@/components/gnosis/ApplyContext";
 import { GlobalAudio } from "@/components/gnosis/GlobalAudio";
+import { SiteHeader } from "@/components/gnosis/SiteHeader";
 
 function NotFoundComponent() {
   return (
@@ -82,6 +83,7 @@ function RootComponent() {
   return (
     <ApplyProvider>
       <GlobalAudio />
+      <SiteHeader />
       <Outlet />
     </ApplyProvider>
   );
