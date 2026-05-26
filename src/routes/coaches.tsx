@@ -123,7 +123,7 @@ function CoachesPage() {
                     src={s.src}
                     alt={s.title}
                     loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1400ms] ease-out scale-105 group-hover:scale-115"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1400ms] ease-out scale-105 group-hover:scale-110"
                   />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent transition-opacity group-hover:opacity-90" />
                   <div className="pointer-events-none absolute inset-0 border-2 border-transparent transition group-hover:border-amber/50 rounded-2xl" />
