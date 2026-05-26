@@ -5,6 +5,7 @@ import { Reveal } from "@/components/gnosis/Reveal";
 import { ContactCTA } from "@/components/gnosis/ContactCTA";
 import { Placeholder } from "@/components/gnosis/Placeholder";
 import { PageHero } from "@/components/gnosis/PageHero";
+import coachesHero from "@/assets/coaches.jpg";
 
 const trainingShots = [
   {
@@ -62,6 +63,7 @@ function CoachesPage() {
         eyebrow="Coaching Staff"
         title={<>Learn From The <span className="gradient-amber bg-clip-text text-transparent">Best</span></>}
         description="Our coaching team brings together UEFA Pro and UEFA A licensed coaches with decades of professional playing and coaching experience at the highest levels of the game."
+        bg={coachesHero}
       />
 
       {/* Coach profile sheets */}

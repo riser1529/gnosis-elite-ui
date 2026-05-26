@@ -57,6 +57,7 @@ function FAQPage() {
       <PageHero
         eyebrow="FAQ"
         title={<>Frequently Asked <span className="gradient-amber bg-clip-text text-transparent">Questions</span></>}
+        bg={null}
         description="Everything you need to know about the Gnosis Performance Transition Year Programme."
       />
 

@@ -10,10 +10,11 @@ const points = [
 ];
 
 export function ProgrammeOverview() {
+  // show a plain, high-contrast black background with a subtle radial vignette
   return (
-    <section className="relative border-t border-white/10 overflow-hidden bg-deep">
-      <div className="absolute inset-0 pointer-events-none opacity-[0.05] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:60px_60px]" />
-      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(70% 50% at 20% 0%, rgba(16,185,129,0.10), transparent 60%)" }} />
+    <section className="relative border-t border-white/10 overflow-hidden bg-black">
+      {/* subtle vignette for depth (very low opacity so background feels plain) */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(70% 50% at 20% 0%, rgba(255,255,255,0.02), transparent 60%)" }} />
       <div className="relative mx-auto max-w-7xl px-5 sm:px-10 py-20 sm:py-24">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14 items-center">
           <Reveal className="min-w-0">
@@ -33,12 +34,7 @@ export function ProgrammeOverview() {
                   LEARN MORE
                   <ChevronRight className="h-4 w-4 transition group-hover:translate-x-1" />
                 </Link>
-                <Link
-                  to="/curriculum"
-                  className="inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/5 px-6 py-3.5 text-[11px] font-black tracking-[0.22em] text-white transition hover:border-amber/50 hover:bg-white/10"
-                >
-                  VIEW CURRICULUM
-                </Link>
+               
               </div>
             </div>
           </Reveal>
@@ -46,17 +42,16 @@ export function ProgrammeOverview() {
           <Reveal delay={120} className="min-w-0">
             <div className="grid grid-cols-2 gap-3">
               {points.map((p, i) => {
-                const green = i % 2 === 0;
+                // only indexes 0 and 3 should be green per spec
+                const green = i === 0 || i === 3;
                 return (
                   <div
                     key={p.v}
                     className="group relative rounded-xl border p-5 transition hover:scale-[1.02]"
                     style={{
                       borderColor: green ? "rgba(16,185,129,0.35)" : "rgba(255,255,255,0.10)",
-                      background: green
-                        ? "linear-gradient(135deg, rgba(16,185,129,0.18), rgba(16,185,129,0.04))"
-                        : "rgba(0,0,0,0.55)",
-                      boxShadow: green ? "0 0 24px rgba(16,185,129,0.18)" : "none",
+                      background: green ? "var(--gradient-amber)" : "rgba(0,0,0,0.75)",
+                      boxShadow: green ? "0 8px 30px rgba(16,185,129,0.18)" : "none",
                     }}
                   >
                     <p.icon className="h-5 w-5" style={{ color: green ? "#04120a" : "var(--amber)" }} />

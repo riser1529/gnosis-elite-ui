@@ -5,6 +5,7 @@ import { Reveal } from "@/components/gnosis/Reveal";
 import { ContactCTA } from "@/components/gnosis/ContactCTA";
 import { Placeholder } from "@/components/gnosis/Placeholder";
 import { PageHero } from "@/components/gnosis/PageHero";
+import locationsHero from "@/assets/locations.jpg";
 
 export const Route = createFileRoute("/locations")({
   component: LocationsPage,
@@ -66,6 +67,7 @@ function LocationsPage() {
         eyebrow="Our Facilities"
         title={<>Academy <span className="gradient-amber bg-clip-text text-transparent">Facilities</span></>}
         description="Train where the pros train. Our facilities provide everything a serious footballer needs to develop to their full potential."
+        bg={locationsHero}
       />
 
       <section className="relative overflow-hidden">

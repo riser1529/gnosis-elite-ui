@@ -19,13 +19,15 @@ export function SiteHeader({ transparent = false }: { transparent?: boolean }) {
   const [mobile, setMobile] = useState(false);
 
   return (
-    <header
-      className={`sticky top-0 z-40 w-full ${
-        transparent
-          ? "bg-deep/30 backdrop-blur-md border-b border-white/5"
-          : "border-b border-white/10 bg-deep/85 backdrop-blur-md"
-      }`}
-    >
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 w-full ${
+          transparent
+            ? "bg-deep/30 backdrop-blur-md border-b border-white/5"
+            : "border-b border-white/10 bg-deep/85 backdrop-blur-md"
+        }`}
+        style={{ WebkitBackdropFilter: 'blur(6px)' }}
+      >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-10 sm:py-6">
         <Link to="/" className="shrink-0">
           <Logo />
@@ -101,6 +103,10 @@ export function SiteHeader({ transparent = false }: { transparent?: boolean }) {
           </div>
         </div>
       )}
-    </header>
+      </header>
+
+      {/* spacer so page content doesn't jump under the fixed header */}
+      <div aria-hidden className="h-20 sm:h-24" />
+    </>
   );
 }

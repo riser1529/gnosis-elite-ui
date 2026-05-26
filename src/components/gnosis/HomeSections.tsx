@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import React, { useEffect, useState } from "react";
 import {
   Activity,
   Brain,
@@ -17,6 +18,7 @@ import {
 import kitImg from "@/assets/kit.jpg";
 import treadmillVideo from "@/assets/treadmill.mp4";
 import { Reveal } from "./Reveal";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 /** ---- 4 tracks (synced with /curriculum) ---- */
 const tracks = [
@@ -68,7 +70,7 @@ const stats = [
   { v: "25", label: "USA College Scholarships" },
 ];
 
-/** ---- What Sets Us Apart (5 differentiators) ---- */
+/** ---- What Sets Us Apart (6 differentiators) ---- */
 const differentiators = [
   {
     icon: Trophy,
@@ -104,6 +106,12 @@ const differentiators = [
     body:
       "Balancing football excellence with academic achievement and personal growth.",
   },
+  {
+    icon: Compass,
+    tag: "06",
+    title: "Pathway Support",
+    body: "College placement, trials and post-programme pathways for ambitious players.",
+  },
 ];
 
 /** ---- Lab images (use real photography URLs) ---- */
@@ -121,6 +129,107 @@ function hoverGlow(e: React.MouseEvent<HTMLElement>, on: boolean) {
 }
 
 export function HomeSections() {
+  const [videoOpen, setVideoOpen] = useState(false);
+  const [modalVideo, setModalVideo] = useState<string | undefined>(undefined);
+  // helper: determine number of columns used by the stats grid at this viewport
+  function useColsForStats() {
+    const [cols, setCols] = useState(() => {
+      if (typeof window === 'undefined') return 2;
+      const w = window.innerWidth;
+      if (w >= 1024) return 6; // lg:grid-cols-6
+      if (w >= 640) return 3; // sm:grid-cols-3
+      return 2; // base grid-cols-2
+    });
+    useEffect(() => {
+      function calc() {
+        const w = window.innerWidth;
+        if (w >= 1024) setCols(6);
+        else if (w >= 640) setCols(3);
+        else setCols(2);
+      }
+      window.addEventListener('resize', calc);
+      return () => window.removeEventListener('resize', calc);
+    }, []);
+    return cols;
+  }
+  // Reusable lab grid tile (image OR video) defined inside component so it can access modal state
+  function LabTile({
+    span,
+    tag,
+    title,
+    imageSrc,
+    videoSrc,
+    live,
+  }: {
+    span: string;
+    tag: string;
+    title: string;
+    imageSrc?: string;
+    videoSrc?: string;
+    live?: boolean;
+  }) {
+    return (
+      <Reveal className={`${span} min-w-0`}>
+        <div
+          className={`group relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-black transition ${videoSrc ? 'cursor-pointer' : ''}`}
+          onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 0 28px rgba(16,185,129,0.32)")}
+          onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "none")}
+          onClick={() => {
+            if (videoSrc) {
+              setModalVideo(videoSrc);
+              setVideoOpen(true);
+            }
+          }}
+          onKeyDown={(e) => {
+            if (!videoSrc) return;
+            if (e.key === 'Enter' || e.key === ' ') {
+              setModalVideo(videoSrc);
+              setVideoOpen(true);
+            }
+          }}
+          role={videoSrc ? 'button' : undefined}
+          tabIndex={videoSrc ? 0 : undefined}
+        >
+          {videoSrc ? (
+            <video
+              src={videoSrc}
+              autoPlay
+              // video preview muted by default; audio will play in modal
+              muted
+              loop
+              playsInline
+              preload="auto"
+              className="absolute inset-0 h-full w-full object-contain bg-black"
+            />
+          ) : (
+            <img
+              src={imageSrc}
+              alt={title}
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1400ms] ease-out scale-105 group-hover:scale-110"
+            />
+          )}
+
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+
+          {live && (
+            <div className="absolute left-3 top-3 inline-flex items-center gap-2 rounded-full border border-amber/40 bg-black/50 px-2.5 py-1 text-[9px] font-black tracking-[0.28em] text-white backdrop-blur-md">
+              <span className="h-1.5 w-1.5 rounded-full animate-pulse-ring" style={{ background: "var(--amber)" }} />
+              LIVE
+            </div>
+          )}
+
+          <div className="absolute left-3 right-3 bottom-3">
+            <div className="text-[9px] sm:text-[10px] font-black tracking-[0.26em] uppercase" style={{ color: "var(--amber)" }}>
+              {tag}
+            </div>
+            <div className="mt-1 text-sm sm:text-base lg:text-lg font-black text-white leading-tight break-words">{title}</div>
+          </div>
+        </div>
+      </Reveal>
+    );
+  }
+
   return (
     <>
       {/* ============ A — 4 TRACK SYSTEM (synced to /curriculum) ============ */}
@@ -201,43 +310,49 @@ export function HomeSections() {
           </Reveal>
 
           <Reveal delay={120}>
+            {/* responsive checkerboard: compute cols and alternate by (row+col)%2 */}
             <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px rounded-2xl overflow-hidden border border-white/10">
-              {stats.map((s, i) => {
-                const green = i % 2 === 0;
-                return (
-                  <div
-                    key={s.v + i}
-                    className="group relative min-w-0 p-5 sm:p-6 transition"
-                    style={{
-                      background: green
-                        ? "linear-gradient(160deg, rgba(16,185,129,0.92), rgba(52,211,153,0.78))"
-                        : "#000000",
-                    }}
-                  >
+              {(() => {
+                const cols = useColsForStats();
+                return stats.map((s, i) => {
+                  const row = Math.floor(i / cols);
+                  const col = i % cols;
+                  const green = ((row + col) % 2) === 0;
+                  return (
                     <div
-                      className="text-[10px] font-bold tracking-[0.28em]"
-                      style={{ color: green ? "rgba(4,18,10,0.7)" : "var(--cyan-precision)" }}
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </div>
-                    <div
-                      className="mt-3 text-4xl sm:text-5xl font-black tracking-tight break-words"
+                      key={s.v + i}
+                      className="group relative min-w-0 p-5 sm:p-6 transition"
                       style={{
-                        color: green ? "#04120a" : "var(--amber)",
-                        textShadow: green ? "none" : "0 0 28px rgba(16,185,129,0.35)",
+                        background: green
+                          ? "linear-gradient(160deg, rgba(16,185,129,0.92), rgba(52,211,153,0.78))"
+                          : "#000000",
                       }}
                     >
-                      {s.v}
+                      <div
+                        className="text-[10px] font-bold tracking-[0.28em]"
+                        style={{ color: green ? "rgba(4,18,10,0.7)" : "var(--cyan-precision)" }}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </div>
+                      <div
+                        className="mt-3 text-4xl sm:text-5xl font-black tracking-tight break-words"
+                        style={{
+                          color: green ? "#04120a" : "var(--amber)",
+                          textShadow: green ? "none" : "0 0 28px rgba(16,185,129,0.35)",
+                        }}
+                      >
+                        {s.v}
+                      </div>
+                      <div
+                        className="mt-3 text-[10px] sm:text-[11px] font-bold leading-snug uppercase tracking-wide break-words"
+                        style={{ color: green ? "rgba(4,18,10,0.85)" : "rgba(255,255,255,0.75)" }}
+                      >
+                        {s.label}
+                      </div>
                     </div>
-                    <div
-                      className="mt-3 text-[10px] sm:text-[11px] font-bold leading-snug uppercase tracking-wide break-words"
-                      style={{ color: green ? "rgba(4,18,10,0.85)" : "rgba(255,255,255,0.75)" }}
-                    >
-                      {s.label}
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                });
+              })()}
             </div>
           </Reveal>
 
@@ -278,14 +393,15 @@ export function HomeSections() {
                     }}
                   >
                     <div className="flex items-center justify-between">
+                      {/* small icon box: color should be opposite of container */}
                       <div
                         className="grid h-11 w-11 place-items-center rounded-lg border"
                         style={{
-                          borderColor: green ? "rgba(4,18,10,0.25)" : "rgba(16,185,129,0.4)",
-                          background: green ? "rgba(255,255,255,0.18)" : "rgba(16,185,129,0.10)",
+                          borderColor: green ? "rgba(255,255,255,0.12)" : "rgba(4,18,10,0.18)",
+                          background: green ? "rgba(0,0,0,0.85)" : "var(--gradient-amber)",
                         }}
                       >
-                        <d.icon className="h-5 w-5" style={{ color: green ? "#04120a" : "var(--amber)" }} />
+                        <d.icon className="h-5 w-5" style={{ color: green ? "var(--amber)" : "#04120a" }} />
                       </div>
                       <span
                         className="text-[10px] font-black tracking-[0.28em]"
@@ -425,68 +541,23 @@ export function HomeSections() {
           </div>
         </div>
       </section>
+
+      {/* Video modal */}
+      <Dialog open={videoOpen} onOpenChange={(open) => { setVideoOpen(open); if (!open) setModalVideo(undefined); }}>
+        <DialogContent className="max-w-4xl w-full p-0">
+          <div className="w-full h-[60vh] sm:h-[70vh] bg-black rounded-2xl overflow-hidden">
+            {modalVideo && (
+              <video
+                src={modalVideo}
+                controls
+                autoPlay
+                className="w-full h-full object-contain bg-black"
+              />
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
+
     </>
-  );
-}
-
-/** ---- Reusable lab grid tile (image OR video) ---- */
-function LabTile({
-  span,
-  tag,
-  title,
-  imageSrc,
-  videoSrc,
-  live,
-}: {
-  span: string;
-  tag: string;
-  title: string;
-  imageSrc?: string;
-  videoSrc?: string;
-  live?: boolean;
-}) {
-  return (
-    <Reveal className={`${span} min-w-0`}>
-      <div
-        className="group relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-black transition"
-        onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 0 28px rgba(16,185,129,0.32)")}
-        onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "none")}
-      >
-        {videoSrc ? (
-          <video
-            src={videoSrc}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1400ms] ease-out scale-105 group-hover:scale-110"
-          />
-        ) : (
-          <img
-            src={imageSrc}
-            alt={title}
-            loading="lazy"
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1400ms] ease-out scale-105 group-hover:scale-110"
-          />
-        )}
-
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-
-        {live && (
-          <div className="absolute left-3 top-3 inline-flex items-center gap-2 rounded-full border border-amber/40 bg-black/50 px-2.5 py-1 text-[9px] font-black tracking-[0.28em] text-white backdrop-blur-md">
-            <span className="h-1.5 w-1.5 rounded-full animate-pulse-ring" style={{ background: "var(--amber)" }} />
-            LIVE
-          </div>
-        )}
-
-        <div className="absolute left-3 right-3 bottom-3">
-          <div className="text-[9px] sm:text-[10px] font-black tracking-[0.26em] uppercase" style={{ color: "var(--amber)" }}>
-            {tag}
-          </div>
-          <div className="mt-1 text-sm sm:text-base lg:text-lg font-black text-white leading-tight break-words">{title}</div>
-        </div>
-      </div>
-    </Reveal>
   );
 }

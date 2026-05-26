@@ -5,6 +5,11 @@ import { Reveal } from "@/components/gnosis/Reveal";
 import { ContactCTA } from "@/components/gnosis/ContactCTA";
 import { Placeholder } from "@/components/gnosis/Placeholder";
 import { PageHero } from "@/components/gnosis/PageHero";
+import curriculumHero from "@/assets/curriculum.jpg";
+import tactical from "@/assets/tactical.jpg";
+import physical from "@/assets/physical.jpg";
+import psych from "@/assets/psych.jpg";
+import academic from "@/assets/academic.jpg";
 
 export const Route = createFileRoute("/curriculum")({
   component: CurriculumPage,
@@ -78,12 +83,14 @@ const tracks = [
 ];
 
 function CurriculumPage() {
+  const trackImages = [tactical, physical, psych, academic];
   return (
     <main className="bg-deep text-foreground overflow-x-hidden">
       <PageHero
         eyebrow="The Framework"
         title={<span className="gradient-amber bg-clip-text text-transparent">Curriculum</span>}
         description="Four integrated tracks delivered every week across the 9-month programme."
+        bg={curriculumHero}
       />
 
       <section className="relative overflow-hidden">
@@ -110,7 +117,7 @@ function CurriculumPage() {
                     </ul>
                   </div>
                   <div className={`min-w-0 ${reverse ? "lg:order-1" : ""}`}>
-                    <Placeholder label={t.placeholderLabel} tag={t.placeholderTag} ratio="aspect-[4/3]" />
+                      <Placeholder label={t.placeholderLabel} tag={t.placeholderTag} ratio="aspect-[4/3]" imageSrc={trackImages[i]} />
                   </div>
                 </article>
               </Reveal>

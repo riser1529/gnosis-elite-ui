@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Quote, Star } from "lucide-react";
 import { Footer } from "@/components/gnosis/Footer";
 import { Reveal } from "@/components/gnosis/Reveal";
 import { ContactCTA } from "@/components/gnosis/ContactCTA";
 import { PageHero } from "@/components/gnosis/PageHero";
+import testimonialsHero from "@/assets/hero-bg.jpg";
 
 export const Route = createFileRoute("/testimonials")({
   component: TestimonialsPage,
@@ -60,12 +61,25 @@ const metrics = [
 function TestimonialsPage() {
   const [tab, setTab] = useState<"players" | "parents">("players");
   const cards = tab === "players" ? players : parents;
+  // compute grid columns responsively for metric board: base 2, lg 4
+  const [metricCols, setMetricCols] = useState<number>(() => {
+    if (typeof window === "undefined") return 2;
+    return window.innerWidth >= 1024 ? 4 : 2;
+  });
+  useEffect(() => {
+    function calc() {
+      setMetricCols(window.innerWidth >= 1024 ? 4 : 2);
+    }
+    window.addEventListener("resize", calc);
+    return () => window.removeEventListener("resize", calc);
+  }, []);
 
   return (
     <main className="bg-deep text-foreground overflow-x-hidden">
       <PageHero
         eyebrow="Testimonials"
         title={<>What Our Players & <span className="gradient-amber bg-clip-text text-transparent">Parents Say</span></>}
+        bg={null}
         description="Hear directly from the players who've been through the programme and the parents who've seen the transformation first-hand."
       />
 
@@ -74,7 +88,7 @@ function TestimonialsPage() {
         <div className="mx-auto max-w-7xl px-5 sm:px-10 py-16 sm:py-20">
           <Reveal>
             <div className="flex justify-center">
-              <div className="relative inline-flex w-full max-w-md items-center rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-md p-1">
+              <div className="relative inline-flex w-full max-w-md items-center rounded-full border border-white/10 bg-white/3 backdrop-blur-md p-1">
               {(["players", "parents"] as const).map((t) => {
                 const active = tab === t;
                 return (
@@ -95,7 +109,7 @@ function TestimonialsPage() {
           <div className="mt-10 grid gap-5 lg:grid-cols-2">
             {cards.map((c, i) => (
               <Reveal key={c.name} delay={i * 120}>
-                <article className="group relative h-full min-w-0 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6 sm:p-8 transition hover:border-amber/40">
+                <article className="group relative h-full min-w-0 rounded-2xl border border-white/10 bg-white/3 backdrop-blur-md p-6 sm:p-8 transition hover:border-amber/40">
                   <div className="flex items-center justify-between gap-4">
                     <Quote className="h-8 w-8 shrink-0" style={{ color: "var(--amber)" }} />
                     <div className="flex items-center gap-1">
@@ -106,8 +120,8 @@ function TestimonialsPage() {
                   </div>
                   <p className="mt-5 text-base sm:text-lg leading-relaxed text-white/90">"{c.quote}"</p>
                   <div className="mt-6 border-t border-white/10 pt-4">
-                    <div className="text-sm font-black text-white break-words">{c.name}</div>
-                    <div className="text-[10px] font-bold tracking-[0.24em] text-cyan-precision uppercase mt-1 break-words">{c.tag}</div>
+                    <div className="text-sm font-black text-white wrap-break-word">{c.name}</div>
+                    <div className="text-[10px] font-bold tracking-[0.24em] text-cyan-precision uppercase mt-1 wrap-break-word">{c.tag}</div>
                   </div>
                 </article>
               </Reveal>
@@ -122,7 +136,10 @@ function TestimonialsPage() {
           <Reveal>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-2xl overflow-hidden border border-white/10">
               {metrics.map((m, i) => {
-                const green = i % 2 === 0;
+                const cols = metricCols || 2;
+                const row = Math.floor(i / cols);
+                const col = i % cols;
+                const green = ((row + col) % 2) === 0;
                 return (
                   <div
                     key={m.v + i}
@@ -140,7 +157,7 @@ function TestimonialsPage() {
                       {String(i + 1).padStart(2, "0")}
                     </div>
                     <div
-                      className="mt-2 text-4xl sm:text-5xl font-black tracking-tight break-words"
+                      className="mt-2 text-4xl sm:text-5xl font-black tracking-tight wrap-break-word"
                       style={{
                         color: green ? "#04120a" : "var(--amber)",
                         textShadow: green ? "none" : "0 0 24px rgba(16,185,129,0.35)",
@@ -149,7 +166,7 @@ function TestimonialsPage() {
                       {m.v}
                     </div>
                     <div
-                      className="mt-2 text-[10px] sm:text-[11px] font-bold leading-snug uppercase tracking-wide break-words"
+                      className="mt-2 text-[10px] sm:text-[11px] font-bold leading-snug uppercase tracking-wide wrap-break-word"
                       style={{ color: green ? "rgba(4,18,10,0.85)" : "rgba(255,255,255,0.75)" }}
                     >
                       {m.label}

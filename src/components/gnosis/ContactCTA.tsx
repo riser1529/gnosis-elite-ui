@@ -5,43 +5,47 @@ import { Reveal } from "./Reveal";
 export function ContactCTA() {
   const { open } = useApply();
   return (
-    <section className="relative border-t border-white/10">
-      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(60% 60% at 50% 0%, rgba(16,185,129,0.10), transparent 70%)" }} />
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-10 py-20 sm:py-24">
+    <section className="relative border-t border-white/10" style={{ background: 'var(--amber)', paddingTop: '2.5rem', paddingBottom: '2.5rem' }}>
+      {/* green background area */}
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-10">
         <Reveal>
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-8 sm:p-12 shadow-deep transition hover:border-amber/40" style={{ boxShadow: "0 0 0 rgba(0,0,0,0)" }}>
-            <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr] items-center">
+          {/* internal container — raised 3D black card */}
+          <div
+            className="mx-auto rounded-2xl bg-black/95 p-6 sm:p-8 shadow-2xl"
+            style={{ transform: 'translateY(-12px)', boxShadow: '0 10px 40px rgba(2,6,23,0.6)' }}
+          >
+            <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr] items-center">
               <div>
                 <span className="text-[10px] font-black tracking-[0.32em] text-cyan-precision uppercase">Talk To Admissions</span>
-                <h2 className="mt-3 text-3xl sm:text-4xl font-black uppercase tracking-tight text-white">Still Have Questions?</h2>
-                <p className="mt-4 max-w-xl text-muted-foreground leading-relaxed">
+                <h2 className="mt-2 text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">Still Have Questions?</h2>
+                <p className="mt-3 max-w-xl text-muted-foreground leading-relaxed text-sm">
                   Our admissions team is happy to chat through any questions you might have — about the programme, the trial process, academic integration, or anything else.
                 </p>
               </div>
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
                 <a
                   href="mailto:info@gnosisperformance.com"
-                  className="group inline-flex items-center justify-between gap-3 rounded-xl border border-white/15 bg-black/40 px-5 py-4 text-white transition hover:border-amber/50 hover:bg-white/5"
-                  style={{ transition: "all .3s" }}
+                  className="group inline-flex items-center justify-between gap-3 rounded-lg border border-white/10 bg-black px-4 py-3 text-white transition hover:border-amber/50"
+                  style={{ transition: 'all .18s' }}
                 >
                   <span className="flex items-center gap-3">
-                    <span className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5">
-                      <Mail className="h-4 w-4" style={{ color: "var(--amber)" }} />
+                    <span className="grid h-8 w-8 place-items-center rounded-md border border-white/8 bg-white/5">
+                      <Mail className="h-4 w-4" style={{ color: 'var(--amber)' }} />
                     </span>
                     <span className="flex flex-col text-left">
                       <span className="text-[10px] font-bold tracking-[0.28em] text-cyan-precision uppercase">Email Us</span>
                       <span className="text-sm font-bold text-white">info@gnosisperformance.com</span>
                     </span>
                   </span>
-                  <ChevronRight className="h-4 w-4 text-white/60 transition group-hover:translate-x-1" />
+                  <ChevronRight className="h-4 w-4 text-white/70 transition group-hover:translate-x-1" />
                 </a>
                 <button
                   onClick={open}
-                  className="group inline-flex items-center justify-between gap-3 rounded-xl gradient-amber px-5 py-4 text-primary-foreground shadow-amber transition hover:scale-[1.02]"
+                  className="group inline-flex items-center justify-between gap-3 rounded-md gradient-amber px-4 py-3 text-sm font-black tracking-[0.18em] text-primary-foreground shadow-amber transition hover:scale-[1.02]"
                 >
                   <span className="flex flex-col text-left">
-                    <span className="text-[10px] font-black tracking-[0.28em] opacity-80 uppercase">Primary CTA</span>
-                    <span className="text-sm font-black tracking-[0.22em] uppercase">Apply Now</span>
+                    <span className="text-[10px] font-black tracking-[0.22em] opacity-90 uppercase">Apply Now</span>
+                    <span className="text-sm font-black tracking-[0.18em] uppercase">Start Application</span>
                   </span>
                   <ChevronRight className="h-4 w-4 transition group-hover:translate-x-1" />
                 </button>

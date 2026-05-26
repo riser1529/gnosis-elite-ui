@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import React, { useState } from "react";
 import { ChevronRight, Calendar, CalendarDays, Flag, Sparkles, Check } from "lucide-react";
 import { Footer } from "@/components/gnosis/Footer";
 import { Reveal } from "@/components/gnosis/Reveal";
@@ -6,6 +7,9 @@ import { ContactCTA } from "@/components/gnosis/ContactCTA";
 import { Placeholder } from "@/components/gnosis/Placeholder";
 import { useApply } from "@/components/gnosis/ApplyContext";
 import { PageHero } from "@/components/gnosis/PageHero";
+import programmeHero from "@/assets/kit.jpg";
+import mission from '@/assets/mission.jpg';
+import drills from '@/assets/drills.jpg';
 
 export const Route = createFileRoute("/programme")({
   component: ProgrammePage,
@@ -47,23 +51,20 @@ const metricBlocks = [
 
 function ProgrammePage() {
   const { open } = useApply();
+  // metric blocks are 2 columns even on mobile (grid-cols-2 was applied)
+  const [metricCols] = useState<number>(2);
   return (
     <main className="bg-deep text-foreground overflow-x-hidden">
       <PageHero
         eyebrow="September 2026 Intake"
         title={<>The <span className="gradient-amber bg-clip-text text-transparent">Programme</span></>}
+        bg={programmeHero}
         description="A full-time Transition Year football and performance pathway. Train, recover and study like a professional, nine months a year, five days a week."
       />
-      <div className="bg-deep">
-        <div className="mx-auto max-w-7xl px-5 sm:px-10 -mt-8 sm:-mt-10 flex justify-center pb-12">
-          <button onClick={open} className="group inline-flex items-center gap-2 rounded-md gradient-amber px-7 py-4 text-sm font-black tracking-[0.2em] text-primary-foreground shadow-amber transition hover:scale-[1.03]">
-            APPLY NOW <ChevronRight className="h-4 w-4 transition group-hover:translate-x-1" />
-          </button>
-        </div>
-      </div>
+      
 
       {/* ===== SECTION B: OUR MISSION (split) ===== */}
-      <section className="relative border-b border-white/10 overflow-hidden">
+      <section className="relative border-b border-white/10 overflow-hidden mt-8">
         <div className="mx-auto max-w-7xl px-5 sm:px-10 py-20 sm:py-28">
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-14 items-center">
             <Reveal className="min-w-0">
@@ -76,7 +77,7 @@ function ProgrammePage() {
               </div>
             </Reveal>
             <Reveal delay={120} className="min-w-0">
-              <Placeholder label="Premium Training Session" tag="Mission · On-Pitch" ratio="aspect-[4/3]" />
+              <Placeholder label="Premium Training Session" tag="Mission · On-Pitch" ratio="aspect-[4/3]" imageSrc={mission} />
             </Reveal>
           </div>
         </div>
@@ -92,12 +93,12 @@ function ProgrammePage() {
             </div>
           </Reveal>
 
-          <div className="mt-12 grid gap-8 lg:grid-cols-2">
+            <div className="mt-12 grid gap-8 lg:grid-cols-2">
             {/* Left: features */}
             <div className="grid gap-3 min-w-0">
               {why.map((w, i) => (
                 <Reveal key={w.title} delay={i * 90}>
-                  <div className="group rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-5 sm:p-6 transition hover:border-amber/40">
+                  <div className="group rounded-xl border border-white/10 bg-white/3 backdrop-blur-md p-5 sm:p-6 transition hover:border-amber/40">
                     <div className="flex items-start gap-3">
                       <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-md border" style={{ borderColor: "rgba(16,185,129,0.5)" }}>
                         <Check className="h-3.5 w-3.5" style={{ color: "var(--amber)" }} />
@@ -113,9 +114,12 @@ function ProgrammePage() {
             </div>
 
             {/* Right: 4 HUD metric blocks */}
-            <div className="grid grid-cols-2 gap-3 min-w-0 self-start">
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-3 min-w-0 self-start">
               {metricBlocks.map((b, i) => {
-                const green = i % 2 === 0;
+                const cols = metricCols || 2;
+                const row = Math.floor(i / cols);
+                const col = i % cols;
+                const green = ((row + col) % 2) === 0;
                 return (
                 <Reveal key={b.v} delay={i * 90}>
                   <div
@@ -130,13 +134,13 @@ function ProgrammePage() {
                   >
                     <b.icon className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: green ? "#04120a" : "var(--amber)" }} />
                     <div
-                      className="mt-3 text-base sm:text-xl font-black tracking-tight break-words"
+                      className="mt-3 text-base sm:text-xl font-black tracking-tight wrap-break-word"
                       style={{ color: green ? "#04120a" : "#fff", textShadow: green ? "none" : "0 0 18px rgba(16,185,129,0.25)" }}
                     >
                       {b.k}
                     </div>
                     <div
-                      className="mt-1.5 text-[9px] sm:text-[10px] font-bold tracking-[0.24em] uppercase break-words"
+                      className="mt-1.5 text-[9px] sm:text-[10px] font-bold tracking-[0.24em] uppercase wrap-break-word"
                       style={{ color: green ? "rgba(4,18,10,0.75)" : "var(--cyan-precision)" }}
                     >
                       {b.v}
@@ -151,7 +155,7 @@ function ProgrammePage() {
           {/* Asset frame */}
           <Reveal delay={120}>
             <div className="mt-12">
-              <Placeholder label="Academy Drills · Full-Pitch Session" tag="Asset Frame · Pitch Ops" ratio="aspect-[21/9]" />
+              <Placeholder label="Academy Drills · Full-Pitch Session" tag="Asset Frame · Pitch Ops" ratio="aspect-[21/9]" imageSrc={drills} />
             </div>
           </Reveal>
         </div>
